@@ -4,11 +4,11 @@
 
 
 /*전체*/
-#wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#EAEAEA;}
+#wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
 
 
 /*탑*/
-#top { 
+#header { 
 	
 	position: relative;
 	top:15px;
@@ -19,7 +19,7 @@
 	font-weight:bold;
 	background-color:#FFC6C6;
 }
-#top img{
+#header img{
 	position: relative;
 	top:25px;
 	left: 25px;
@@ -27,8 +27,8 @@
 	width: 250px;
 	height: 60px;
 }
-#top li{list-style: none; float:right;}
-#top a {
+#header li{list-style: none; float:right;}
+#header li a {
 	color:#FFF;
 	text-decoration:none;
 	padding:5px;
@@ -36,12 +36,16 @@
 	top:65px;
 	right:55px;
 }
-#top a:hover {color: red;}
+#header a:hover {color: red;}
+
+#header_left{ width:250px ; float:left;  }
+#header_center{ width:300px ; float:left; padding-left:80px ;}
+
 
 /*네비 바*/
 #navibar{
 	width:960px;
-	height:50px;
+	height:45px;
 	position: relative;
 	background-color:#ABBEBE;	
 	top:15px;
@@ -59,9 +63,9 @@
 	position:relative;
 	font: bold 12px/30px Tahoma;
 	width:180px ;
-	height:30px ;  
+	height:35px ;  
 	margin-left : 2px ; 
-	left:15px;top:10px;}
+	left:15px;top:5px;}
 #navibar ul li a.selected{background-color:#fff;}
 #navibar ul li a:hover{color:black;}
 .navi{width: 150px;}

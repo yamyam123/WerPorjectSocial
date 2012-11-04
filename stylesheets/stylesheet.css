@@ -11,66 +11,62 @@
 #header { 
 	
 	position: relative;
-	top:15px;
-	left: 15px;
-	width:930px;
-	height: 95px;
+	width:960px;
+	height: 90px;
 	padding:0;
 	font-weight:bold;
-	background-color:#FFC6C6;
+	background-color:#EFEFF0;
 }
 #header img{
 	position: relative;
-	top:25px;
-	left: 25px;
+	margin: 5% 0 0 10%;
 	float: left;
 	width: 250px;
 	height: 60px;
 }
-#header li{list-style: none; float:right;}
-#header li a {
-	color:#FFF;
+#header_right li{list-style: none; }
+#header_right li a {
+	color:#000;
 	text-decoration:none;
-	padding:5px;
-	position:relative;
-	top:65px;
-	right:55px;
 }
-#header a:hover {color: red;}
-
-#header_left{ width:250px ; float:left;  }
-#header_center{ width:300px ; float:left; padding-left:80px ;}
+#header a:hover, a:active  {color: red;}
+#header a:link	  {text-decoration: none; color:#444;}
+#header a:visited {font-color: #00f;}
+#header_left{ float:left;  }
+#header_right{ float:right; margin: 4% 4% 0 0;}
 
 
 /*네비 바*/
 #navibar{
 	width:960px;
-	height:45px;
-	position: relative;
-	background-color:#ABBEBE;	
-	top:15px;
+	height:60px;
+	background-color:#D8D8D8;	
 	margin-bottom: 15px;
-	
+	float:left;
 }
-#navibar ul { margin-left:150px;padding:0;}
-#navibar ul li{ list-style:none; float:left;}
+#navibar ul { margin: 0.7% 0% 1% 5%; padding:0; }
+#navibar ul li{ 
+	list-style:none; 
+	float:left;  
+}
 #navibar ul li a{
 	color:#444;
 	/*display:block;
 	background-color:#cccccc ;*/ 
 	text-decoration:none;
-	text-align:center ; 
+	
 	position:relative;
 	font: bold 18px/30px Tahoma;
 	/*width:180px ;
 	height:35px ; */ 
 	margin-left : 2px ; 
-	left:15px;top:5px;}
+	left:15px;top:5px;
+}
 #navibar ul li a.selected{background-color:#fff;}
 #navibar ul li a:hover{color:black;}
 .navi{width: 150px;}
 /*메인화면*/
 #main{
-	background-color: #FFD8D8;
-	height: 700px;	
+	background-color: #EDEDED;
+	height: 1000px;	
 }

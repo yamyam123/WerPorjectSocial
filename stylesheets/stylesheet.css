@@ -52,18 +52,18 @@
 	margin-bottom: 15px;
 	
 }
-#navibar ul { margin-left:10px;paddiong:0;}
+#navibar ul { margin-left:150px;padding:0;}
 #navibar ul li{ list-style:none; float:left;}
 #navibar ul li a{
-	color:#333;
-	display:block;
-	background-color:#cccccc ; 
+	color:#444;
+	/*display:block;
+	background-color:#cccccc ;*/ 
 	text-decoration:none;
 	text-align:center ; 
 	position:relative;
-	font: bold 12px/30px Tahoma;
-	width:180px ;
-	height:35px ;  
+	font: bold 18px/30px Tahoma;
+	/*width:180px ;
+	height:35px ; */ 
 	margin-left : 2px ; 
 	left:15px;top:5px;}
 #navibar ul li a.selected{background-color:#fff;}

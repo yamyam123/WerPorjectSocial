@@ -1,0 +1,72 @@
+﻿html{
+	background:#FFF; 
+}
+
+
+/*전체*/
+#wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
+
+
+/*탑*/
+#header { 
+	
+	position: relative;
+	width:960px;
+	height: 90px;
+	padding:0;
+	font-weight:bold;
+	background-color:#EFEFF0;
+}
+#header img{
+	position: relative;
+	margin: 5% 0 0 10%;
+	float: left;
+	width: 250px;
+	height: 60px;
+}
+#header_right li{list-style: none; }
+#header_right li a {
+	color:#000;
+	text-decoration:none;
+}
+#header a:hover, a:active  {color: red;}
+#header a:link	  {text-decoration: none; color:#444;}
+#header a:visited {font-color: #00f;}
+#header_left{ float:left;  }
+#header_right{ float:right; margin: 4% 4% 0 0;}
+
+
+/*네비 바*/
+#navibar{
+	width:960px;
+	height:60px;
+	background-color:#D8D8D8;	
+	margin-bottom: 15px;
+	float:left;
+}
+#navibar ul { margin: 0.7% 0% 1% 5%; padding:0; }
+#navibar ul li{ 
+	list-style:none; 
+	float:left;  
+}
+#navibar ul li a{
+	color:#444;
+	/*display:block;
+	background-color:#cccccc ;*/ 
+	text-decoration:none;
+	
+	position:relative;
+	font: bold 18px/30px Tahoma;
+	/*width:180px ;
+	height:35px ; */ 
+	margin-left : 2px ; 
+	left:15px;top:5px;
+}
+#navibar ul li a.selected{background-color:#fff;}
+#navibar ul li a:hover{color:black;}
+.navi{width: 150px;}
+/*메인화면*/
+#main{
+	background-color: #EDEDED;
+	height: 1000px;	
+}

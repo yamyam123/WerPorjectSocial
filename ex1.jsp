@@ -61,7 +61,7 @@
   </style>
   
   
-  <div id="user-info"></div>
+  
   <script>
     function updateUserInfo(response) {
       FB.api('/me', function(response) {
@@ -73,14 +73,15 @@
   
   <script>
   function getUserFriends() {
-    FB.api('/me/friends&fields=name,picture', function(response) {
+    FB.api('/me/friends&fields=name, picture', function(response) {
       console.log('Got friends: ', response);
       if (!response.error) {
         var markup = '';
         var friends = response.data;
         for (var i=0; i < friends.length && i < 25; i++) {
           var friend = friends[i];
-          markup += '<img src="' + friend.picture + '"> ' + friend.name + '<br>';
+
+          markup += '<img src="https://graph.facebook.com/' + friend.id + '/picture"> ' + friend.name + '<br>';
         }
         document.getElementById('user-friends').innerHTML = markup;
       }
@@ -89,9 +90,12 @@
   </script>
   
 <div id ="wrap"><!-- 전체를 감싸고 있는 wrap div-->
+	<div id="user-info"></div>
 	<div id ="header"><!-- 상단부 div -->
+		
 		<div id = "header_left">
 			<img src = "./3.jpg"  alt="이곳은 로고입니다."/> <!--오류 체크시 오류발생 사진파일 첨부함 -->
+			
 		</div>
 		<div id = "header_right">
 			<a href="#">Sign Up</a>&nbsp;&nbsp; | &nbsp;&nbsp;
@@ -115,7 +119,7 @@
 		</ul>
 	</div>
 	<div id="main"><!-- 네비바를 클릭했을때 보여지는 장소 -->
-		<a href="#" onclick="getUserFriends();">Get friends</a><br>
+		<button onclick="getUserFriends();">Get friends</button><br>
   	<div id="user-friends"></div>
 	</div>
 </div>

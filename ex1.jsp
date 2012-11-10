@@ -43,6 +43,7 @@
      if (response.authResponse) {
        console.log(response);
        updateUserInfo(response);
+       getUserFriends();
      }
    }
    </script>
@@ -59,6 +60,7 @@
     body.not_connected #login { visibility:visible; }
     body.not_connected #logout { visibility:hidden; }
     body.not_connected #user-info{visibility:hidden;}
+    body.not_connected .friend{visibility:hidden;}
   </style>
   
   
@@ -116,7 +118,6 @@
 		<div id="user-info"></div>
 	</div>
 	<div id="main"><!-- 네비바를 클릭했을때 보여지는 장소 -->
-		<button onclick="getUserFriends();">Get friends</button><br>
   	<div id="user-friends"></div>
 	</div>
 </div>

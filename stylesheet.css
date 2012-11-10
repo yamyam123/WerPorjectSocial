@@ -24,18 +24,39 @@
 	width: 250px;
 	height: 60px;
 }
-#header_right li{list-style: none; }
-#header_right li a {
+#header_left{
+	position:absolute;
+	left:15px;
+	top:5px;
+}
+#user-info{
+	float:left;
+}
+
+#header_right li{list-style: none; float:left;margin:0 0 0 15px;}
+#header_right a {
 	color:#000;
 	text-decoration:none;
 }
-#header a:hover, a:active  {color: red;}
-#header a:link	  {text-decoration: none; color:#444;}
-#header a:visited {font-color: #00f;}
-#header_left{ float:left;  }
 #header_right{ float:right; margin: 4% 4% 0 0;}
-
-
+#header_right a:hover, a:active  {color: red;}
+#user-info img{
+width:55px;
+height:40px;
+}
+/*내정보*/
+#user-info{
+	font-size:12px;
+	float:right;
+}
+/*친구 목록 */
+.friend{
+	width:250px;
+	heigth:100px;
+	float:left;
+	margin-left:55px;
+	margin-top:15px;
+}
 /*네비 바*/
 #navibar{
 	width:960px;

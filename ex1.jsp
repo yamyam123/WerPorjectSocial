@@ -54,10 +54,11 @@
   </script>
   
   <style>
-    body.connected #login { display: none; }
-    body.connected #logout { display: block; }
-    body.not_connected #login { display: block; }
-    body.not_connected #logout { display: none; }
+    body.connected #login { visibility:hidden; }
+    body.connected #logout { visibility:visible; }
+    body.not_connected #login { visibility:visible; }
+    body.not_connected #logout { visibility:hidden; }
+    body.not_connected #user-info{visibility:hidden;}
   </style>
   
   
@@ -81,7 +82,7 @@
         for (var i=0; i < friends.length && i < 25; i++) {
           var friend = friends[i];
 
-          markup += '<img src="https://graph.facebook.com/' + friend.id + '/picture"> ' + friend.name + '<br>';
+          markup +='<div class="friend"><img src="https://graph.facebook.com/' + friend.id + '/picture">' + friend.name+'</div>';
         }
         document.getElementById('user-friends').innerHTML = markup;
       }
@@ -90,24 +91,19 @@
   </script>
   
 <div id ="wrap"><!-- 전체를 감싸고 있는 wrap div-->
-	<div id="user-info"></div>
 	<div id ="header"><!-- 상단부 div -->
 		
-		<div id = "header_left">
+		<div id="header_left">
 			<img src = "./3.jpg"  alt="이곳은 로고입니다."/> <!--오류 체크시 오류발생 사진파일 첨부함 -->
-			
 		</div>
-		<div id = "header_right">
-			<a href="#">Sign Up</a>&nbsp;&nbsp; | &nbsp;&nbsp;
-			<div>
-			<div id="login">
-     <button onClick="loginUser();">Login</button>
-   	</div>
-   	<div id="logout">
-     <div id="user-info"></div>
-     <button  onClick="FB.logout();">Logout</button>
-   	</div>
-			</div>
+		
+		<div id="header_right">
+		<ol>
+			<li><a href="#">Sign Up</a></li>
+			<li id="login"><a href="#" onClick="loginUser();">Login</a></li>
+   		<li id="logout"><a href="#" onClick="FB.logout();">Logout</a></li>
+   	</ol>			
+		
 		</div>
 	</div>
 	<div id="navibar"><!-- Navibar div -->
@@ -117,6 +113,7 @@
 			<li id="SentHeart" class="navi"><a href="#">보낸하트</a></li>
 			<li id="Modify"class="navi"><a href="#">프로필수정</a></li>
 		</ul>
+		<div id="user-info"></div>
 	</div>
 	<div id="main"><!-- 네비바를 클릭했을때 보여지는 장소 -->
 		<button onclick="getUserFriends();">Get friends</button><br>

@@ -80,19 +80,36 @@
     FB.api('/me/friends&fields=name, picture', function(response) {
       console.log('Got friends: ', response);
       if (!response.error) {
-        var markup = '';
+        markup = '';
         var friends = response.data;
-        for (var i=0; i < friends.length && i < 25; i++) {
+        current=0;
+        for (var i=0; i < friends.length && i <6; i++) {
           var friend = friends[i];
 
-          markup +='<div id="friend"><img src="https://graph.facebook.com/' + friend.id + '/picture">' 
-          					+ friend.name + 
-          					'<a href = "https://www.facebook.com/' + friend.id + '/"> 홈피연결  </a>';
-          					'</div>';
+          markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name +'</div>'+
+         						'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
         }
+        current+=6;
         document.getElementById('user-friends').innerHTML = markup;
       }
     });
+  }
+  function viewmore()
+  {
+	  FB.api('/me/friends&fields=name, picture', function(response) {
+	      console.log('Got friends: ', response);
+	      if (!response.error) {
+	        var friends = response.data;
+	        for (var i=current; i < friends.length && i < current+6; i++) {
+	          var friend = friends[i];
+
+	          markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name +'</div>'+
+	         						'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
+	        }
+	        current+=6;
+	        document.getElementById('user-friends').innerHTML = markup;
+	      }
+	    });
   }
   </script>
   
@@ -139,6 +156,7 @@
 		
 		 <a href="#" onclick="sendRequest();">Send request</a><br>
   	<div id="user-friends"></div>
+  	<input type="button" value="더 보기" onClick="viewmore();"/>
 	</div>
 </div>
 </body>

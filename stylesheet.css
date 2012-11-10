@@ -51,11 +51,28 @@ height:40px;
 }
 /*친구 목록 */
 .friend{
-	width:250px;
+	width:200px;
 	heigth:100px;
 	float:left;
-	margin-left:55px;
+	margin-left:40px;
 	margin-top:15px;
+}
+.homelink{
+	width:65px;
+	height:100px;
+	float:left;
+}
+.homelink img
+{
+	visibility:hidden;
+}
+.homelink a{
+	text-align:right;
+	text-decoration:none;
+	color:#444;
+}
+.homelink a:hover{
+	color:red;
 }
 /*네비 바*/
 #navibar{

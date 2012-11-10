@@ -69,7 +69,8 @@
     function updateUserInfo(response) {
       FB.api('/me', function(response) {
         document.getElementById('user-info').innerHTML = 
-        	'<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
+        	'<img src="https://graph.facebook.com/' + response.id + '/picture">' 
+        	+ response.name;
       });
     }
   </script>
@@ -84,13 +85,30 @@
         for (var i=0; i < friends.length && i < 25; i++) {
           var friend = friends[i];
 
-          markup +='<div class="friend"><img src="https://graph.facebook.com/' + friend.id + '/picture">' + friend.name+'</div>';
+          markup +='<div id="friend"><img src="https://graph.facebook.com/' + friend.id + '/picture">' 
+          					+ friend.name + 
+          					'<a href = "https://www.facebook.com/' + friend.id + '/"> 홈피연결  </a>';
+          					'</div>';
         }
         document.getElementById('user-friends').innerHTML = markup;
       }
     });
   }
   </script>
+  
+<script>
+  function sendRequest() {
+    FB.ui({
+      method: 'apprequests',
+      message: 'invites you to learn how to make your mobile web app social',
+    }, 
+    function(response) {
+      console.log('sendRequest response: ', response);
+    });
+  }
+  </script>
+  
+  
   
 <div id ="wrap"><!-- 전체를 감싸고 있는 wrap div-->
 	<div id ="header"><!-- 상단부 div -->
@@ -118,6 +136,8 @@
 		<div id="user-info"></div>
 	</div>
 	<div id="main"><!-- 네비바를 클릭했을때 보여지는 장소 -->
+		
+		 <a href="#" onclick="sendRequest();">Send request</a><br>
   	<div id="user-friends"></div>
 	</div>
 </div>

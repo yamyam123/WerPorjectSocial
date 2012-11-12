@@ -118,10 +118,29 @@
     FB.ui({
       method: 'apprequests',
       message: 'invites you to learn how to make your mobile web app social',
+      link : 'http://localhost:8080/ppp2/ex1.jsp',
+    	picture : 'http://www.facebookmobileweb.com/hackbook/img/facebook_icon_large.png'
     }, 
     function(response) {
       console.log('sendRequest response: ', response);
     });
+  }
+  </script>
+  
+   <script>
+  function publishStory() {
+    FB.ui({
+      method: 'feed',
+      name: '저는 소셜 모바일 웹앱을 만들고 있답니다.',
+      caption: '양재기가 만들어가는 웹페이지랍니다. ',
+      description: '당신도 만들고 싶다면 페이스북 개발자 사이트를 확인하세요.',
+      link: 'http://localhost:8080/ppp2/ex1.jsp',
+      picture: 'http://www.facebookmobileweb.com/hackbook/img/facebook_icon_large.png'
+    }, 
+    function(response) {
+      console.log('publishStory response: ', response);
+    });
+    return false;
   }
   </script>
   
@@ -150,11 +169,12 @@
 			<li id="SentHeart" class="navi"><a href="#">보낸하트</a></li>
 			<li id="Modify"class="navi"><a href="#">프로필수정</a></li>
 		</ul>
+		
 		<div id="user-info"></div>
 	</div>
 	<div id="main"><!-- 네비바를 클릭했을때 보여지는 장소 -->
-		
-		 <a href="#" onclick="sendRequest();">Send request</a><br>
+		<input type="button" value = "담벼락에 자랑하기" onclick="publishStory();">
+		 <input type="button" value="친구 초대" onclick="sendRequest();">
   	<div id="user-friends"></div>
   	<input type="button" value="더 보기" onClick="viewmore();"/>
 	</div>

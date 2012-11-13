@@ -43,7 +43,6 @@
      if (response.authResponse) {
        console.log(response);
        updateUserInfo(response);
-       getUserFriends();
      }
    }
    </script>
@@ -71,43 +70,94 @@
         document.getElementById('user-info').innerHTML = 
         	'<img src="https://graph.facebook.com/' + response.id + '/picture">' 
         	+ response.name;
+        	if(response.gender=='male'){
+        		getUserFriends();
+        		me=1;
+        	}
+        	else{
+        		getUserFriends();
+        		me=2;
+        	}
       });
     }
   </script>
   
   <script>
   function getUserFriends() {
-    FB.api('/me/friends&fields=name, picture', function(response) {
+    FB.api('/me/friends&fields=name, picture, gender', function(response) {
       console.log('Got friends: ', response);
       if (!response.error) {
         markup = '';
         var friends = response.data;
-        current=0;
-        for (var i=0; i < friends.length && i <6; i++) {
-          var friend = friends[i];
-
-          markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name +'</div>'+
-         						'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
-        }
-        current+=6;
-        document.getElementById('user-friends').innerHTML = markup;
+        current=0; //현재 보여지는 명수
+        female = 0; //여자 수
+        male =0; //남자수
+        if(me==1){// 남자 일때
+        	for (var i=0; i < friends.length && i <6+male; i++) {
+          	var friend = friends[i];
+						if(friend.gender=='female'){
+          		markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name+'</div>'+
+         							'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
+						}
+						else if(friend.gender=='male'){
+							male++;
+						}
+					}
+        	current+=6;
+        	document.getElementById('user-friends').innerHTML = markup;
+      	} 
+      else if(me==2){//여자일때
+      	for (var i=0; i < friends.length && i <6+female; i++) {
+            	var friend = friends[i];
+  						if(friend.gender=='male'){
+            		markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name+current+female +'</div>'+
+           							'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
+  						}
+  						else if(friend.gender=='female'){
+  							female++;
+  						}
+  					}
+          	current+=6;
+          	document.getElementById('user-friends').innerHTML = markup;
+      	}
       }
     });
   }
   function viewmore()
   {
-	  FB.api('/me/friends&fields=name, picture', function(response) {
+	  FB.api('/me/friends&fields=name, picture, gender', function(response) {
 	      console.log('Got friends: ', response);
 	      if (!response.error) {
 	        var friends = response.data;
-	        for (var i=current; i < friends.length && i < current+6; i++) {
-	          var friend = friends[i];
-
-	          markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name +'</div>'+
-	         						'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
-	        }
-	        current+=6;
-	        document.getElementById('user-friends').innerHTML = markup;
+	        if(me==1){
+		        for (var i=current+male; i < friends.length && i < 6+current+male; i++) {
+		          var friend = friends[i];
+		         if(friend.gender=='female'){
+		          		markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name+current+female+'</div>'+
+		         							'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
+		         }
+		         else if(friend.gender=='male'){
+		        	 male++;
+		         }
+		        }
+		        current+=6;
+		        document.getElementById('user-friends').innerHTML = markup;
+		      
+	      }
+	      else if(me==2){
+	        	for (var i=current+female; i < friends.length && i <6+current+female; i++) {
+	              	var friend = friends[i];
+	    						if(friend.gender=='male'){
+	              		markup +='<div class="friend"><img src="https://graph.facebook.com/'+ friend.id +'/picture">'+friend.name+current+female +'</div>'+
+	             							'<div class="homelink"><img src="https://graph.facebook.com/'+ friend.id +'/picture"><a href = "https://www.facebook.com/'+ friend.id+'/"> 홈피연결  </a></div>';
+	    						}
+	    						else if(friend.gender=='female'){
+	    							female++;
+	    						}
+	    					}
+	            	current+=6;
+	            	document.getElementById('user-friends').innerHTML = markup;
+	        	}
 	      }
 	    });
   }
@@ -164,12 +214,11 @@
 	</div>
 	<div id="navibar"><!-- Navibar div -->
 		<ul>
-			<li id="Home" class="navi"><a href="#">Home</a></li>
+			<li id="zHome" class="navi"><a href="#">Home</a></li>
 			<li id="ReceiveHeart" class="navi"><a href="#">받은하트</a></li>
 			<li id="SentHeart" class="navi"><a href="#">보낸하트</a></li>
 			<li id="Modify"class="navi"><a href="#">프로필수정</a></li>
 		</ul>
-		
 		<div id="user-info"></div>
 	</div>
 	<div id="main"><!-- 네비바를 클릭했을때 보여지는 장소 -->

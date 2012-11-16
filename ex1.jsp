@@ -200,7 +200,7 @@
 	<div id ="header"><!-- 상단부 div -->
 		
 		<div id="header_left">
-			<img src = "./3.jpg"  alt="이곳은 로고입니다."/> <!--오류 체크시 오류발생 사진파일 첨부함 -->
+			<img src = "./logo.jpg"  alt="이곳은 로고입니다."/> <!--오류 체크시 오류발생 사진파일 첨부함 -->
 		</div>
 		
 		<div id="header_right">

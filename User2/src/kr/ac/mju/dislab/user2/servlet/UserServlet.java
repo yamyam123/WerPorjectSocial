@@ -146,6 +146,7 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		boolean ret = false;
 		boolean error = false;
+		boolean isEmpty = true;
 		String actionUrl;
 		String msg="";
 		User user = new User();
@@ -155,8 +156,11 @@ public class UserServlet extends HttpServlet {
 		String log = request.getParameter("log");
 		
 		if(type.equals("signup")){
-		
-			String id = "";
+			if(request.getAttribute("id") != null)
+			{
+				isEmpty = false;
+			}
+			String id="";
 			String userid = "";
 			String pwd = "";
 			String pwd_confirm = "";
@@ -164,7 +168,7 @@ public class UserServlet extends HttpServlet {
 			String email = "";
 			String gender = "";
 		
-			if(request.getAttribute("id") != null)
+			if(isEmpty)
 			{
 				id = request.getParameter("id");
 				userid = request.getParameter("userid");
@@ -174,14 +178,15 @@ public class UserServlet extends HttpServlet {
 				email = request.getParameter("email");
 				gender = request.getParameter("gender");
 			}
+			
 		
 			if (isRegisterMode(request)) {
-				if(id.equals(null))
+				if(id==null)
 				{
 					errorMsgs.add("페이스북 로그인을 해주세요.");
 					error = true;
 				}
-				if (pwd.equals(null) || pwd.length() < 6) {
+				if (pwd==null || pwd.length() < 6) {
 					errorMsgs.add("비밀번호는 6자 이상 입력해주세요.");
 					error = true;
 				} 
@@ -191,12 +196,12 @@ public class UserServlet extends HttpServlet {
 					error = true;
 				}
 				user.setPwd(pwd);
-				if (userid.equals(null) || userid.trim().length() == 0) {
+				if (userid==null || userid.trim().length() == 0) {
 					errorMsgs.add("ID를 반드시 입력해주세요.");
 					error = true;
 				}
 				
-				if (name.equals(null) || name.trim().length() == 0) {
+				if (name==null || name.trim().length() == 0) {
 					errorMsgs.add("이름을 반드시 입력해주세요.");
 					error = true;
 				}

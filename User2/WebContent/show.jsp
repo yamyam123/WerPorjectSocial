@@ -17,6 +17,7 @@
 <jsp:param name = "current" value = "show"/>
 	</jsp:include>
 	<c:if test = "${user.name !=null }">
+	
 		<table>
 		<c:forEach var="user" items="${users }">
 			<tr>

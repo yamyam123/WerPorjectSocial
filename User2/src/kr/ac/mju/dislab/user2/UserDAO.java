@@ -187,18 +187,40 @@ public class UserDAO {
 		
 		return user;	
 		}
+	public static void addHash(int hash,String gender,String userid) throws NamingException, SQLException
+	{	
+		int result;
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		
+		DataSource ds = getDataSource();
+		
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("UPDATE users SET hash= ? WHERE  gender =? AND userid=?");
+			stmt.setInt(1,  hash);
+			stmt.setString(2, gender);
+			stmt.setString(3, userid);
+			result = stmt.executeUpdate();
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+	}
 	public static List<User> showAll(String gender) throws NamingException, SQLException
 	{
-		HashSet<String> hs = new HashSet<String>();
-		List<User> list;
+		List<User> list; //반환하는 유저 리스트
 		Connection conn = null;
 		PreparedStatement stmt=null;
 		ResultSet rs= null;
 		DataSource ds = getDataSource();
 		list = new ArrayList<User>();
-		
-		
-		
+		int person = 0 ; //db에 저장되있는 사람의 수
 		
 		try {
 			conn = ds.getConnection();
@@ -214,12 +236,35 @@ public class UserDAO {
 				stmt.setString(1, "male");
 				rs = stmt.executeQuery();
 			}
+			
+			while(rs.next())
+			{
+				person++;
+				int num = (int)(Math.random()*person*10)+1;
+				addHash(num,rs.getString("gender"),rs.getString("userid"));
+			}
+			rs.close();
+			rs= null;
+			stmt.close();
+			stmt=null;
+			stmt = conn.prepareStatement("SELECT *FROM users WHERE gender=? ORDER BY hash");
+			if(gender.equals("male"))
+			{
+				stmt.setString(1, "female");
+				rs = stmt.executeQuery();
+			}
+			else
+			{
+				stmt.setString(1, "male");
+				rs = stmt.executeQuery();
+			}
 			while(rs.next())
 			{
 				list.add(new User(rs.getString("id"),rs.getString("userid")
-						,rs.getString("name"),rs.getString("pwd"),rs.getString("email"),
-						rs.getString("gender"),rs.getDate("birth")));
+					,rs.getString("name"),rs.getString("pwd"),rs.getString("email"),
+					rs.getString("gender"),rs.getDate("birth")));
 			}
+		
 			
 		} finally {
 			if (rs != null) try{rs.close();} catch(SQLException e) {}

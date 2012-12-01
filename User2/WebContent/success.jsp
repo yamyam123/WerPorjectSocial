@@ -23,5 +23,6 @@
 	 		<a href="user" class="btn">목록으로</a>
 	 	</div>
  	</div>
+ 	<jsp:include page = "share/footer.jsp" />
 </body>
 </html>

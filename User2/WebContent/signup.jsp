@@ -13,7 +13,6 @@
   <meta property="og:image" content="http://www.facebookmobileweb.com/hackbook/img/facebook_icon_large.png"/>
 	<title>회원목록</title>
 	<link href="css/stylesheet.css" rel="stylesheet">
-	
 	<script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </head>
@@ -21,14 +20,13 @@
 <jsp:include page="share/header.jsp">
   <jsp:param name="current" value="Sign Up"/>
 </jsp:include>
-<div id = "wrap">
-
-<div id = "main">
- <ul>
-   <li><button onClick="loginUser();">Login</button></li>
-   <li><button  onClick="FB.logout();">Logout</button></li>
-    <li><div id="user-info"></div></li>
-  </ul>
+ <div class="wrap">
+	<div class="main">
+		<ul>
+ 			<li id="login">페이스북에 로그인 해주세요 <button onClick="loginUser();">Login</button></li>
+			<li><button id="logout" onClick="FB.logout();">Logout</button></li>
+ 		</ul>
+  	<br>
    
 		  <form class="form-horizontal" action="user" method="POST">
 			<fieldset>
@@ -98,9 +96,7 @@
 			</fieldset>
 		  </form>
     </div>
-    </div>
-   
-    
+  </div>
 <div id="fb-root"></div>
   <script>
     (function() {
@@ -140,6 +136,7 @@
   </script>
   
   <style>
+   	#logout{display:none;}
     body.connected #login { display: none; }
     body.connected #logout { display: block; }
     body.not_connected #login { display: block; }
@@ -183,5 +180,6 @@
     });
   }
   </script>
+  <jsp:include page = "share/footer.jsp" />
 </body>
 </html>

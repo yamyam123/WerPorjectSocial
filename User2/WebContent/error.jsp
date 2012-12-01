@@ -18,18 +18,6 @@
   <div class="container">
     <div class="alert alert-error">
       <c:out value="${error}"/>
-      
-      <c:if test="${errorMsg != null || errorMsg.size() > 0 }">
-        <h3>Errors:</h3>
-        <ul>
-          <c:forEach var="msg" items="${errorMsgs}">
-            <li>${msg}</li>
-            <li><a class="brand" href="user?op=login">log in</a></li>
-            
-          </c:forEach>
-        </ul>
-      </c:if>
-      
     </div>
   </div>
 <jsp:include page = "share/footer.jsp" />

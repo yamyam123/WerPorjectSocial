@@ -16,47 +16,20 @@
   <!DOCTYPE html>
 	<html>
 	<head>
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/base.css" rel="stylesheet">
+  
+	<link href="css/stylesheet.css" rel="stylesheet">
 	<script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 	</head>
 	<body>
-  <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-      <div class="container">
-        <a class="brand" href="user?op=signup">sign up</a>
-        <c:if test = "${user.id ==null }">
-        <a class="brand" href="user?op=login">log in</a>
-        </c:if>
-        <c:if test = "${user.id !=null }">
-        <a class="brand" href="user?op=login">log out</a>
-        </c:if>
-        <div class="nav-collapse collapse">
-          <ul class="nav">
-          <%
-          	for(String[] menuItem : menu) {
-          		if (currentMenu != null && currentMenu.equals(menuItem[1])) {
-          			out.println("<li class='active'>");
-          		} else {
-          			out.println("<li class=''>");
-          		}
-          		%>
-          		<a href="user?op=<%=menuItem[1] %>&id=${user.id  }"> <%= menuItem[1] %></a>
-          	<%
-          	}
-          %>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="container" style="padding-top:50px">
-		<h1>
-		Soical Dating
+	<div id ="wrap">
+	<div id ="header">
+		
+		<div id="header_left">
 		<img src="img/logo.jpg" alt="logo">
-		</h1>
-		<div class="user">
+		</div>
+	<div id = "header_right">
+	<li>
 		<c:if test = "${user.id != NULL}">
 			${user.name   } <img src="https://graph.facebook.com/${user.id }/picture">
 			<form class="form-horizontal" action="user" method="POST">
@@ -67,7 +40,43 @@
 			<input type="submit" class="btn btn-primary" value="log out">
 			</form>
 		</c:if>
+		</li>
 		</div>
+	</div>
+	
+	<div id = "navibar">
+	<ul>
+        <li class="navi"><a href="user?op=signup" >sign up</a></li>
+        
+        <c:if test = "${user.id ==null }">
+        <li class="navi"><a href="user?op=login">log in</a></li>
+        </c:if>
+        
+        <c:if test = "${user.id !=null }">
+        <li class="navi"><a href="user?op=login">log out</a></li>
+        </c:if>
+        
+          
+          <%
+          	for(String[] menuItem : menu) {
+          		if (currentMenu != null && currentMenu.equals(menuItem[1])) {
+          			out.println("<li class='navi'>");
+          		} else {
+          			out.println("<li class=''>");
+          		}
+          		%>
+          		<li class='navi'><a href="user?op=<%=menuItem[1] %>&id=${user.id  }"> <%= menuItem[1] %></a></li>
+          	<%
+          	}
+          %>
+         
+          </ul>
+  </div>
+ 
+  
+		
+	
+ 	
  	</div>
 </body>
 </html>

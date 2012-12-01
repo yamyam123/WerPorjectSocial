@@ -1,0 +1,136 @@
+﻿html{
+	background:#FFF; 
+}
+
+
+/*전체*/
+#wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
+
+
+/*탑*/
+#header { 
+	
+	position: relative;
+	width:960px;
+	height: 150px;
+	padding:0;
+	font-weight:bold;
+	background-color:#EFEFF0;
+}
+#header_left img{
+	position: relative;
+	margin: 5% 0 0 10%;
+	float: left;
+	width: 350px;
+	height: 120px;
+}
+
+#header_left{
+	
+	float:left ; 
+	position:absolute;
+	left:15px;
+	top:5px;
+}
+
+#user-info{
+	float:left;
+} 
+
+#header_right li{ list-style: none; float:left; margin:0 0 0 15px;  }
+#header_right a {
+	color:#000;
+	text-decoration:none;
+}
+#header_right{ float:right; margin: 4% 4% 0 0;}
+#header_right a:hover, a:active  {color: red;}
+#user-info img{
+width:55px;
+height:40px;
+}
+/*내정보*/
+#user-info{
+	font-size:12px;
+	float:right;
+}
+/*친구 목록 */
+.friend{
+	width:200px;
+	heigth:100px;
+	float:left;
+	margin-left:40px;
+	margin-top:15px;
+}
+.homelink{
+	width:65px;
+	height:100px;
+	float:left;
+}
+.homelink img
+{
+	visibility:hidden;
+}
+.homelink a{
+	text-align:right;
+	text-decoration:none;
+	color:#444;
+}
+.homelink a:hover{
+	color:red;
+}
+/*네비 바*/
+#navibar{
+	width:960px;
+	height:60px;
+	background-color:#D8D8D8;	
+	margin-bottom: 15px;
+	float:left;
+}
+#navibar ul { margin: 0.7% 0% 1% 5%; padding:0; }
+#navibar ul li{ 
+	
+	margin : 10px;
+	list-style:none; 
+	float:left;  
+}
+#navibar ul li a{
+	color:#444;
+	/*display:block;
+	background-color:#cccccc ;*/
+	text-decoration:none;
+	
+	position:relative;
+	font: bold 18px/30px Tahoma;
+	/*width:180px ;
+	height:35px ; */ 
+	margin-left : 2px ; 
+	left:15px;top:5px;
+}
+#navibar ul li a.selected{background-color:#fff;}
+#navibar ul li a:hover{color:black;}
+
+.navi{width: 90px;}
+
+/*메인화면*/
+#main{
+	margin : 0 0 0 0 ; 
+	background-color: #EDEDED;
+	height: 1000px;	
+}
+
+#main ul { list-style: none; margin: 0.7% 0% 1% 5%; padding:0; }
+
+#main ul li{ 
+	list-style: none;
+	margin : 10px;
+	list-style:none; 
+	float:left;  
+}
+
+/*footer*/
+#footer{
+	background-color: #FFDD73;
+	text-align:center;
+	font-size:11px;
+}
+	

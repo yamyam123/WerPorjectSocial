@@ -15,7 +15,6 @@ public class User implements java.io.Serializable {
 	private String email;
 	private String gender;
 	private Date birth;
-	private int hash;// 랜덤순서 출력을 위한 해쉬값
 	private int g;//하트 준갯수
 	private int r;//하트 받은갯수
 	private List Gheart;
@@ -59,17 +58,7 @@ public class User implements java.io.Serializable {
 		this.gender = gender;
 		this.birth = birth;
 	}
-	public User(String id, String userid, String name, String pwd, String email, String gender, Date birth,int hash) {
-		super();
-		this.id = id;
-		this.userid = userid;
-		this.name = name;
-		this.pwd = pwd;
-		this.email = email;
-		this.gender = gender;
-		this.birth = birth;
-		this.hash = hash;
-	}
+
 	// getter & setter 가 있어야 한다. (Eclipse 에서 자동 생성 가능)
 	public String getId() {
 		return id;
@@ -118,13 +107,13 @@ public class User implements java.io.Serializable {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getHash() {
-		return hash;
-	}
 
-	public void setHash(int hash) {
-		this.hash = hash;
+	public String getGenderStr() {
+		if (gender.equals("Male")) {
+			return "남성";
+		} else {
+			return "여성";
+		}
 	}
-	
 }
 	

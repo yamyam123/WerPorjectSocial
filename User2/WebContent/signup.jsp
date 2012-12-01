@@ -12,8 +12,8 @@
   <meta property="og:description" content="안녕 친구들! 이것은 내 모바일 웹앱 예제랍니다." />
   <meta property="og:image" content="http://www.facebookmobileweb.com/hackbook/img/facebook_icon_large.png"/>
 	<title>회원목록</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/base.css" rel="stylesheet">
+	<link href="css/stylesheet.css" rel="stylesheet">
+	
 	<script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </head>
@@ -21,12 +21,14 @@
 <jsp:include page="share/header.jsp">
   <jsp:param name="current" value="Sign Up"/>
 </jsp:include>
- <div class="container">
-   <div>
-   <button onClick="loginUser();">Login</button>
-   <button  onClick="FB.logout();">Logout</button>
-    <div id="user-info"></div>
-  
+<div id = "wrap">
+
+<div id = "main">
+ <ul>
+   <li><button onClick="loginUser();">Login</button></li>
+   <li><button  onClick="FB.logout();">Logout</button></li>
+    <li><div id="user-info"></div></li>
+  </ul>
    
 		  <form class="form-horizontal" action="user" method="POST">
 			<fieldset>
@@ -96,7 +98,9 @@
 			</fieldset>
 		  </form>
     </div>
-  </div>
+    </div>
+   
+    
 <div id="fb-root"></div>
   <script>
     (function() {

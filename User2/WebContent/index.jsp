@@ -5,8 +5,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>회원목록</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/base.css" rel="stylesheet">
+	<link href="css/stylesheet.css" rel="stylesheet">
 	<script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/bootstrap.min.js"></script>
 </head>
@@ -14,6 +13,12 @@
 <jsp:include page = "share/header.jsp">
 	<jsp:param name = "current" value = "index"/>
 	</jsp:include>
+	<div id = "wrap">
+	<div id="main">
+	
 현재 페이지는 index 입니다. ${user.id } ${user.name } ${user.birth } ${user.gender }
+
+</div>
+</div>
 </body>
 </html>

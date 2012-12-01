@@ -65,13 +65,13 @@ public class UserServlet extends HttpServlet {
 				{
 					List<User> users= UserDAO.showAll(logid.getGender());
 					request.setAttribute("users", users);
-					request.setAttribute("user", logid);
+					request.setAttribute("iuser", logid);
 					actionUrl = "show.jsp";
 				}
 				else
 				{
 					request.setAttribute("error","로그인  후에 사용 가능합니다");
-					request.setAttribute("user",logid);
+					request.setAttribute("iuser",logid);
 					actionUrl = "show.jsp";
 				}
 				

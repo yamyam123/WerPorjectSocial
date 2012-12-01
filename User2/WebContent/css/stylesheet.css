@@ -4,25 +4,26 @@
 
 
 /*전체*/
-#wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
+.wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
 
 
 /*탑*/
 #header { 
-	
+	border:1px solid;
 	position: relative;
-	width:960px;
-	height: 150px;
+	width:958px;
+	height: 130px;
 	padding:0;
 	font-weight:bold;
-	background-color:#EFEFF0;
+	background-color:white;
+	
 }
 #header_left img{
 	position: relative;
+	left:30px;
+	top:10px;
 	margin: 5% 0 0 10%;
 	float: left;
-	width: 350px;
-	height: 120px;
 }
 
 #header_left{
@@ -82,7 +83,7 @@ height:40px;
 #navibar{
 	width:960px;
 	height:60px;
-	background-color:#D8D8D8;	
+	background-color:black;	
 	margin-bottom: 15px;
 	float:left;
 }
@@ -94,7 +95,7 @@ height:40px;
 	float:left;  
 }
 #navibar ul li a{
-	color:#444;
+	color:white;
 	/*display:block;
 	background-color:#cccccc ;*/
 	text-decoration:none;
@@ -107,30 +108,61 @@ height:40px;
 	left:15px;top:5px;
 }
 #navibar ul li a.selected{background-color:#fff;}
-#navibar ul li a:hover{color:black;}
+#navibar ul li a:hover{color:#FFFF8F}
 
 .navi{width: 90px;}
 
 /*메인화면*/
-#main{
+.main{
 	margin : 0 0 0 0 ; 
-	background-color: #EDEDED;
-	height: 1000px;	
+	background-color: white;
+	border:1px solid;
+	height: 700px;	
+	font-family:"HY동녘B","휴먼모음T","굴림";	
+	font-size:15pt;
+	padding-left:25px;
+	padding-right:25px;
+	padding-top:25px;
 }
 
-#main ul { list-style: none; margin: 0.7% 0% 1% 5%; padding:0; }
+.main ul { list-style: none; margin: 0% 0% 1% 0%; padding:0; }
 
-#main ul li{ 
+.main ul li{ 
 	list-style: none;
-	margin : 10px;
-	list-style:none; 
+	margin : 5px; 
 	float:left;  
 }
-
+.main a{
+	text-decoration :none;
+	color:#0000C9;
+}
+.main input{
+	
+}
 /*footer*/
 #footer{
 	background-color: #FFDD73;
 	text-align:center;
 	font-size:11px;
 }
+/*유저 프로필 팝업창*/
+ #mask {  
+     position:absolute;  
+     z-index:9000;  
+     background-color:#000;  
+     display:none;  
+     left:0;
+     top:0;
+   } 
+   .window{
+   	 background-color:white;
+   	 width:350px;
+   	 height:500px;
+     display: none;
+     position:absolute;  
+     left:650px;
+     top:150px;
+     z-index:10000;
+     color:blue;
+   }
 	

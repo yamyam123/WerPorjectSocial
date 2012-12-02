@@ -19,17 +19,27 @@
 <c:if test="${log == 'login'}">
 <div class ="wrap">
 <div class ="main">
+	<div class="log-form">
 	<form class="form-horizontal" action="user" method="POST">
-		<label class="control-label" for="userid">ID</label>
-		<input type="text" name="userid"><br>
-		<label class="control-label" for="pwd">Password</label>
-		<input type="password" name="pwd"><br>
-		<div class="form-actions">
+	<div class="log-label">
+		<label class="log-label" for="userid">ID</label>
+	</div>
+	<div class="log-intput">
+		<input class="log-input" type="text" name="userid"><br>
+	</div>
+	<div class="log-label">
+		<label class="log-label" for="pwd">Password</label>
+	</div>
+	<div class="log-intput">
+		<input class="log-input" type="password" name="pwd"><br>
+	</div>
 		<input type ="hidden" name="type" value="log">
+		<div class="login-btn">
 		<input type="submit" class="btn btn-primary" value="log in">
-		<input type="hidden" name="log" value="login">
 		</div>
+		<input type="hidden" name="log" value="login">
 	</form>
+	</div>
 </div>
 </div>
 </c:if>

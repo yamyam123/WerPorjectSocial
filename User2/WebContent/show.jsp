@@ -66,17 +66,21 @@
 				<img src="https://graph.facebook.com/${ruser.id }/picture">
 				<input type="button" value="자세히 보기" onClick="wrapWindowByMask('${ruser.id }')">
 			</div>
-			<div class="window" id="${ruser.id }">
- 				<input type="button" class="close" value="(.window .close)"/>
-				${ruser.name }
-				<form action="user" method="POST">
-					<img src="https://graph.facebook.com/${ruser.id }/picture">
+			<div class="window" id="${ruser.id }"> <!-- 윈도우 창 -->
+				<img src="https://graph.facebook.com/${ruser.id }/picture">
+				<div class="info">
+				<br><br><br><br>
+				${ruser.name }<br>
+				${ruser.email }
+				</div>
+ 				<input type="button" class="close" value="닫기 X"/>
+				<form action="user" method="POST">				
 					<input type="hidden" name="type" value="gheart"/>
 					<input type="hidden" name="gid" value="${user.id }">
 					<input type="hidden" name="rid" value="${ruser.id }">
 					<input type="hidden" name="rname" value="${ruser.name }">
 					<input type="hidden" name="gname" value="${user.name }">
-					<input type="submit" value="하트보내기"/>
+					<input type="submit" class="submit" value="하트보내기"/>
 				</form>
 			</div>	
 		</c:forEach>

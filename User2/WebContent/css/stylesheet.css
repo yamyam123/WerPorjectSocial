@@ -146,7 +146,7 @@ height:40px;
 	font-size:11px;
 }
 /*유저 프로필 팝업창*/
- #mask {  
+#mask {  
      position:absolute;  
      z-index:9000;  
      background-color:#000;  
@@ -154,15 +154,87 @@ height:40px;
      left:0;
      top:0;
    } 
-   .window{
-   	 background-color:white;
-   	 width:350px;
-   	 height:500px;
-     display: none;
-     position:absolute;  
-     left:650px;
-     top:150px;
-     z-index:10000;
-     color:blue;
-   }
+.window{
+  background-color:white;
+  width:350px;
+  height:500px;
+  display: none;
+  position:absolute;  
+  left:650px;
+  top:150px;
+  z-index:10000;
+  color:blue;
+  padding:20px;
+}
+.window img{
+	float:left;
+	width:100px;
+	height:150px;
+	margin-right:15px;
+}
+.close{
+	position:absolute;
+	right:15px;
+	top:15px;
+	width:60px;
+	height:25px;
+}
+.submit{
+	position:absolute;
+	left:25%;
+	bottom:20px;
+	width:200px;
+	height:50px;
+}
+/*sign up 페이지 부분*/
+.control-group{
+	width:700px;
+	height:70px;
+	text-align:right;
+}
+.control-label{
+	width:250px;
+	float:left;
+	margin-right:20px;
+}
+.controls{
+	float:left;
+	maign-left :35px;
+	width:120px;
+	height:50px;
+	font-family:"돋움";
+	font-size:12pt;
+}
+.controls input{
+	float:left;
+	maign-left :35px;
 	
+}
+.form-actions{
+	position:absolute;
+	left:35%;
+	bottom:230px;
+}
+.form-actions input{
+	width:150px;
+	height:30px;
+}
+/*로그인 부분*/
+.log-form{
+	position:relative;
+	left:35%;
+	top:20px;
+}
+.log-label div{
+	width:170x;
+	height:200px;
+}
+.log-input div{
+	float:left;
+	width:170px;
+	height:200px;
+}
+.login-btn input{
+	width:155px;
+	height:30px;
+}

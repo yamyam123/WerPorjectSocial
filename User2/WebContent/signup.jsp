@@ -24,9 +24,9 @@
 	<div class="main">
 		<ul>
  			<li id="login">페이스북에 로그인 해주세요 <button onClick="loginUser();">Login</button></li>
-			<li><button id="logout" onClick="FB.logout();">Logout</button></li>
+			<li id="logout">페이스북 로그아웃 하기 <button onClick="FB.logout();">Logout</button></li>
  		</ul>
-  	<br>
+		<div></div>
    
 		  <form class="form-horizontal" action="user" method="POST">
 			<fieldset>
@@ -83,7 +83,7 @@
 				
 				<div id="user-hidden"></div>
 				<div class="form-actions">
-					<a href="user" class="btn">목록으로</a>
+					<a href="user" class="btn" onClick="FB.logout();">목록으로</a>
 					<c:choose>
 					  <c:when test="${method=='POST'}">
   						<input type="submit" class="btn btn-primary" value="가입">
@@ -141,6 +141,10 @@
     body.connected #logout { display: block; }
     body.not_connected #login { display: block; }
     body.not_connected #logout { display: none; }
+    body.not_connected #user-name { display: none; }
+    body.connected #user-name{ display: block; }
+    body.not_connected #user-email { display: none; }
+    body.connected #user-email{ display: block; }
   </style>
   
   <script>
@@ -155,8 +159,6 @@
 		<script>
 			function join(response){
 				FB.api('/me',function(response){
-					 document.getElementById('user-info').innerHTML = 
-				        	'<img src="https://graph.facebook.com/' + response.id + '/picture">' + response.name;
 				   document.getElementById('user-name').innerHTML = response.name;
 				   document.getElementById('user-gender').innerHTML = response.gender;
 				   document.getElementById('user-email').innerHTML = response.email;

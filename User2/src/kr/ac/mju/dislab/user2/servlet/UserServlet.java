@@ -34,18 +34,6 @@ public class UserServlet extends HttpServlet {
         super();
     }
 
-
-	private int getIntFromParameter(String str, int defaultValue) {
-		int id;
-		
-		try {
-			id = Integer.parseInt(str);
-		} catch (Exception e) {
-			id = defaultValue;
-		}
-		return id;
-	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -55,8 +43,8 @@ public class UserServlet extends HttpServlet {
 		boolean ret;
 		String id = "";
 		
-		if (op == null && id != "") {
-			op = "show";
+		if (op == null) {
+			op = "index";
 		}
 		
 		try {
@@ -76,7 +64,7 @@ public class UserServlet extends HttpServlet {
 				}
 				
 				actionUrl = "show.jsp";
-			} else if (op==null || op.equals("index")){
+			} else if (op==null ||op.equals("index")){
 				//User user = UserDAO.findById(id);
 				request.setAttribute("user", logid);
 				actionUrl = "index.jsp";

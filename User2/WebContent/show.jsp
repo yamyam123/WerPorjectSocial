@@ -64,7 +64,9 @@
 			<div id=userinf>
 				${ruser.name }
 				<img src="https://graph.facebook.com/${ruser.id }/picture">
+			
 				<input type="button" value="자세히 보기" onClick="wrapWindowByMask('${ruser.id }')">
+			
 			</div>
 			<div class="window" id="${ruser.id }"> <!-- 윈도우 창 -->
 				<img src="https://graph.facebook.com/${ruser.id }/picture">

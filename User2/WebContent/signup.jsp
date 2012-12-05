@@ -58,6 +58,16 @@
 						</div>
 					</div>
 				</c:if>
+				
+				<div class="control-group">
+					<label class="control-label" for="talk">이성에게 남기는 한마디</label>
+					<div class="controls" id="text">
+					<textarea rows="15" name="text" style="width:155%; height:90%;">
+						</textarea>
+				
+					</div>
+				</div>
+				
 				<div class="control-group">
 					<label class="control-label" for="name">Name</label>
 					<div class="controls">
@@ -82,18 +92,21 @@
 				</div>
 				
 				<div id="user-hidden"></div>
+				</fieldset>
 				<div class="form-actions">
-					<a href="user" class="btn" onClick="FB.logout();">목록으로</a>
+				
+					<a href="user" class="btn" onClick="FB.logout();" >목록으로</a>
+					
 					<c:choose>
 					  <c:when test="${method=='POST'}">
-  						<input type="submit" class="btn btn-primary" value="가입">
+  						<input type="submit" id = "button" value="가입">
   					</c:when>
   					<c:otherwise>
-  						<input type="submit" class="btn btn-primary" value="수정">
+  						<input type="submit" id="button" value="수정">
   					</c:otherwise>
   				</c:choose>
 				</div>
-			</fieldset>
+			
 		  </form>
     </div>
   </div>

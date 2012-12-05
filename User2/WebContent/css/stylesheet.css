@@ -1,13 +1,13 @@
-ï»¿html{
+html{
 	background:#FFF; 
 }
 
 
-/*ì „ì²´*/
+/*ÀüÃ¼*/
 .wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
 
 
-/*íƒ‘*/
+/*Å¾*/
 #header { 
 	border:1px solid;
 	position: relative;
@@ -49,12 +49,12 @@
 width:55px;
 height:40px;
 }
-/*ë‚´ì •ë³´*/
+/*³»Á¤º¸*/
 #user-info{
 	font-size:12px;
 	float:right;
 }
-/*ì¹œêµ¬ ëª©ë¡ */
+/*Ä£±¸ ¸ñ·Ï */
 .friend{
 	width:200px;
 	heigth:100px;
@@ -79,7 +79,7 @@ height:40px;
 .homelink a:hover{
 	color:red;
 }
-/*ë„¤ë¹„ ë°”*/
+/*³×ºñ ¹Ù*/
 #navibar{
 	width:960px;
 	height:60px;
@@ -112,13 +112,13 @@ height:40px;
 
 .navi{width: 90px;}
 
-/*ë©”ì¸í™”ë©´*/
+/*¸ŞÀÎÈ­¸é*/
 .main{
 	margin : 0 0 0 0 ; 
 	background-color: white;
 	border:1px solid;
 	height: 700px;	
-	font-family:"HYë™ë…˜B","íœ´ë¨¼ëª¨ìŒT","êµ´ë¦¼";	
+	font-family:"HYµ¿³èB","ÈŞ¸Õ¸ğÀ½T","±¼¸²";	
 	font-size:15pt;
 	padding-left:25px;
 	padding-right:25px;
@@ -145,7 +145,7 @@ height:40px;
 	text-align:center;
 	font-size:11px;
 }
-/*ìœ ì € í”„ë¡œí•„ íŒì—…ì°½*/
+/*À¯Àú ÇÁ·ÎÇÊ ÆË¾÷Ã¢*/
 #mask {  
      position:absolute;  
      z-index:9000;  
@@ -160,8 +160,8 @@ height:40px;
   height:500px;
   display: none;
   position:absolute;  
-  left:650px;
-  top:150px;
+  left:35%;
+  top:15%;
   z-index:10000;
   color:blue;
   padding:20px;
@@ -186,7 +186,11 @@ height:40px;
 	width:200px;
 	height:50px;
 }
-/*sign up í˜ì´ì§€ ë¶€ë¶„*/
+/*sign up ÆäÀÌÁö ºÎºĞ*/
+
+.form-horizontal fieldset{
+	height:550px; 
+}
 .control-group{
 	width:700px;
 	height:70px;
@@ -202,7 +206,7 @@ height:40px;
 	maign-left :35px;
 	width:120px;
 	height:50px;
-	font-family:"ë‹ì›€";
+	font-family:"µ¸¿ò";
 	font-size:12pt;
 }
 .controls input{
@@ -210,16 +214,20 @@ height:40px;
 	maign-left :35px;
 	
 }
+#text{
+	width:120px;
+	height:60px;
+}
 .form-actions{
 	position:absolute;
-	left:35%;
-	bottom:230px;
+	left:34%;
+	bottom:-17%;
 }
 .form-actions input{
 	width:150px;
 	height:30px;
 }
-/*ë¡œê·¸ì¸ ë¶€ë¶„*/
+/*·Î±×ÀÎ ºÎºĞ*/
 .log-form{
 	position:relative;
 	left:35%;

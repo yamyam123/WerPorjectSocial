@@ -32,9 +32,24 @@
 			<fieldset>
 			<input type="hidden" name="type" value="signup"/>
         <legend class="legend">Sign Up</legend>
-        <c:if test="${method == 'PUT'}">
+        <!--<c:if test="${method == 'PUT'}">
           <input type="hidden" name="_method" value="PUT"/>
-        </c:if>
+        </c:if>-->
+        <div class="control-group">
+					<label class="control-label" for="name">Name</label>
+					<div class="controls">
+						<div id="user-name"></div>
+				
+					</div>
+				</div>
+
+				<div class="control-group">
+					<label class="control-label" for="email">E-mail</label>
+					<div class="controls">
+						<div id="user-email"></div>
+					</div>
+				</div>
+        
 				<div class="control-group">
 					<label class="control-label" for="userid">ID</label>
 					<div class="controls">
@@ -42,8 +57,7 @@
 					
 					</div>
 				</div>
-				<c:if test="${method == 'POST'}">
-					<%-- 신규 가입일 때만 비밀번호 입력창을 나타냄 --%>
+		
 					<div class="control-group">
 						<label class="control-label" for="pwd">Password</label>
 						<div class="controls">
@@ -57,56 +71,35 @@
 							<input type="password" name="pwd_confirm">
 						</div>
 					</div>
-				</c:if>
 				
 				<div class="control-group">
-					<label class="control-label" for="talk">이성에게 남기는 한마디</label>
-					<div class="controls" id="text">
-					<textarea rows="15" name="text" style="width:155%; height:90%;">
-						</textarea>
-				
+					<label class="control-label">birth year</label>
+					<div class="controls">
+					<!-- 숫자만 입력할수 있음 -->
+					     <input type="text" name="birth" style="ime-mode:disabled;" onkeydown="return onlyNumber(event)">
 					</div>
 				</div>
 				
-				<div class="control-group">
-					<label class="control-label" for="name">Name</label>
+					<div class="control-group">
+					<label class="control-label">What I want to say</label>
 					<div class="controls">
-						<div id="user-name"></div>
-				
-					</div>
-				</div>
-
-				
-				<div class="control-group">
-					<label class="control-label" for="email">E-mail</label>
-					<div class="controls">
-						<div id="user-email"></div>
-					</div>
-				</div>
-
-				<div class="control-group">
-					<label class="control-label">Gender</label>
-					<div class="controls">
-					      <div id="user-gender"></div>
+					      <textarea rows="3" cols="20" name="say"></textarea>
 					</div>
 				</div>
 				
 				<div id="user-hidden"></div>
-				</fieldset>
 				<div class="form-actions">
-				
-					<a href="user" class="btn" onClick="FB.logout();" >목록으로</a>
-					
+					<a href="user" class="btn" onClick="FB.logout();">목록으로</a>
 					<c:choose>
 					  <c:when test="${method=='POST'}">
-  						<input type="submit" id = "button" value="가입">
+  						<input type="submit" class="btn btn-primary" value="가입">
   					</c:when>
   					<c:otherwise>
-  						<input type="submit" id="button" value="수정">
+  						<input type="submit" class="btn btn-primary" value="수정">
   					</c:otherwise>
   				</c:choose>
 				</div>
-			
+			</fieldset>
 		  </form>
     </div>
   </div>
@@ -158,6 +151,8 @@
     body.connected #user-name{ display: block; }
     body.not_connected #user-email { display: none; }
     body.connected #user-email{ display: block; }
+     body.not_connected #user-gender { display: none; }
+    body.connected #user-gender{ display: block; }
   </style>
   
   <script>
@@ -173,7 +168,6 @@
 			function join(response){
 				FB.api('/me',function(response){
 				   document.getElementById('user-name').innerHTML = response.name;
-				   document.getElementById('user-gender').innerHTML = response.gender;
 				   document.getElementById('user-email').innerHTML = response.email;
 				});
 			}
@@ -194,6 +188,20 @@
       }
     });
   }
+  </script>
+  <script>
+  function onlyNumber(event) {
+	    var key = window.event ? event.keyCode : event.which;    
+
+	    if ((event.shiftKey == false) && ((key  > 47 && key  < 58) || (key  > 95 && key  < 106)
+	    || key  == 35 || key  == 36 || key  == 37 || key  == 39  // 방향키 좌우,home,end  
+	    || key  == 8  || key  == 46 ) // del, back space
+	    ) {
+	        return true;
+	    }else {
+	        return false;
+	    }    
+	};
   </script>
   <jsp:include page = "share/footer.jsp" />
 </body>

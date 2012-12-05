@@ -45,7 +45,14 @@ public class HeartDAO {
 			stmt.setString(2,  str);
 			stmt.setString(3,  rid);
 			stmt.setString(4, name);
-			stmt.setInt(5,  0);
+			if(alreadyGive(rid,gid))//상대가 나에게 하트를 보냈엇나?
+			{
+				stmt.setInt(5,  1);
+			}
+			else
+			{
+				stmt.setInt(5, 0);
+			}
 			
 			// 수행
 			stmt.executeUpdate();
@@ -80,7 +87,7 @@ public class HeartDAO {
 			stmt.setString(2,  str);
 			stmt.setString(3,  gid);
 			stmt.setString(4, name);
-			stmt.setInt(5, 0);
+			stmt.setInt(5, 1);
 			
 			// 수행
 			stmt.executeUpdate();
@@ -91,8 +98,37 @@ public class HeartDAO {
 			if (conn != null) try{conn.close();} catch(SQLException e) {}
 		}
 	}
+	public static boolean alreadyReceive(String gid,String rid) throws NamingException, SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		DataSource ds = getDataSource();
+		boolean receive = false;
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement(
+					"SELECT * FROM rheart where id=? AND rid=?" 
+					);
+			stmt.setString(1,  rid);
+			stmt.setString(2,  gid);
+			if(rs.next())
+			{
+				receive = true;
+			}
+			// 수행
+			stmt.executeUpdate();
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		return receive;
+	}
 	
-	public static boolean alreadySend(String gid,String rid) throws NamingException, SQLException{
+	public static boolean alreadyGive(String gid,String rid) throws NamingException, SQLException{
 		boolean send = false;//보낸적있는가?
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -181,5 +217,29 @@ public class HeartDAO {
 		
 		return list;
 	}
-	
+	public static void heartCheck(String id) throws NamingException, SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int result;
+		DataSource ds = getDataSource();
+		
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("UPDATE rheart set finish=? WHERE id = ?");
+			stmt.setInt(1, 0);
+			stmt.setString(2, id);
+			
+			// 수행
+			result = stmt.executeUpdate();
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+
+	}
 }

@@ -60,20 +60,20 @@
 	<c:if test = "${user.name !=null }">
 		<div class ="wrap">
 		<div class ="main">
+		<a href="user?op=show&id=${user.id  }">목록 새로 고침 </a>
 		<c:forEach var="ruser" items="${users }">
 			<div id=userinf>
 				${ruser.name }
 				<img src="https://graph.facebook.com/${ruser.id }/picture">
-			
 				<input type="button" value="자세히 보기" onClick="wrapWindowByMask('${ruser.id }')">
-			
 			</div>
 			<div class="window" id="${ruser.id }"> <!-- 윈도우 창 -->
 				<img src="https://graph.facebook.com/${ruser.id }/picture">
 				<div class="info">
 				<br><br><br><br>
 				${ruser.name }<br>
-				${ruser.email }
+				${ruser.email }<br>
+				${ruser.say }
 				</div>
  				<input type="button" class="close" value="닫기 X"/>
 				<form action="user" method="POST">				

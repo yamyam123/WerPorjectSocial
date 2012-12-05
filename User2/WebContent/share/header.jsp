@@ -3,10 +3,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> 
 <%
 	String[][] menu = {
-		{"./user", "index" },
-		{"./user", "show" },
-		{"./user", "gshow" },
-		{"./uesr", "rshow" }
+		{"./user", "index","Home" },
+		{"./user", "show" ,"목록보기"},
+		{"./user", "gshow" ,"보낸하트"},
+		{"./uesr", "rshow" ,"받은하트"}
 	};
 
   String currentMenu = request.getParameter("current");
@@ -41,17 +41,18 @@
 	</div>
 	<div id = "navibar">
 	<ul>
-    <li class="navi"><a href="user?op=signup" >sign up</a></li>
     <c:if test = "${user.id ==null }">
       <li class="navi"><a href="user?op=login">log in</a></li>
+      <li class="navi"><a href="user?op=signup" >sign up</a></li>
      </c:if>
      <c:if test = "${user.id !=null }">
-      <li class="navi"><a href="user?op=login">log out</a></li>
+     	<li class="navi"></li>
+     	<li class="navi"></li>
      </c:if>
   		<%
       for(String[] menuItem : menu) {
       %>
-       <li class='navi'><a href="user?op=<%=menuItem[1] %>&id=${user.id  }"> <%= menuItem[1] %></a></li>
+       <li class='navi'><a href="user?op=<%=menuItem[1] %>&id=${user.id  }"> <%= menuItem[2] %></a></li>
       	<%
         }
        %>

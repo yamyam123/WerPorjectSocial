@@ -17,15 +17,11 @@
 <div class="main">
 
 <c:if test = "${user.name !=null }">
-
-	<!--  현재 페이지는 index 입니다. 
-	${user.id } ${user.name } ${user.birth } ${user.gender }-->
-	<img src="img/index.jpg" alt="logo" width = 900px height = 500px >
-	
+	현재 페이지는 index 입니다. ${user.id } ${user.name } ${user.birth } ${user.gender }
 </c:if>
 <c:if test = "${user.name ==null }">
 홈페이지 소개
-</c:if> 
+</c:if> -
 </div>
 </div>
 <jsp:include page = "share/footer.jsp" />

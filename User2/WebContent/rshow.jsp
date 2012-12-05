@@ -9,7 +9,49 @@
   <script src="js/jquery-1.8.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
 <title>Insert title here</title>
+ <script src="js/jquery-1.8.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="http://code.jquery.com/jquery-latest.js"></script>
+   <script>
+   function wrapWindowByMask(id){
+	      //화면의 높이와 너비를 구한다.
+	      var maskHeight = $(document).height();  
+	      var maskWidth = $(window).width();
+	      //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+	      $('#mask').css({'width':maskWidth,'height':maskHeight});  
+	 
+	      //애니메이션 효과 - 일단 1초동안 까맣게 됐다가 50% 불투명도로 간다.
+	      $('#mask').fadeIn(1000);      
+	      $('#mask').fadeTo("slow",0.5);    
+	      //윈도우 같은 거 띄운다.
+	    	 $('#'+id).show();
+	      
+	   }
+   
+   $(document).ready(function(){
+	      //검은 막 띄우기
+	      $('.openMask').click(function(e){
+	    	  e.preventDefault();
+	         wrapWindowByMask(name);
+	      });
+	 
+	      //닫기 버튼을 눌렀을 때
+	      $('.window .close').click(function (e) {  
+	          //링크 기본동작은 작동하지 않도록 한다.
+	          e.preventDefault();  
+	          $('#mask, .window').hide(); 
+	          
+	      });       
+	 
+	      //검은 막을 눌렀을 때
+	      $('#mask').click(function () {  
+	          $(this).hide();  
+	          $('.window').hide();
+	          
+	      });      
+	   });
 
+   </script>
 </head>
 <body>
 <jsp:include page="share/header.jsp">
@@ -22,23 +64,33 @@
  <table>
  <th>보낸 시간</th>
  <th>보낸 사람</th>
- <th>상 태 </th>
+ <th>사진</th><th></th>
+	
 	<c:forEach var="heart" items="${rheart }">
 	<tr>
 	<td> ${heart.receiveTime }</td>
 	<td> ${heart.gName }</td>
-	<td>
-
-		<c:if test="${heart.finish ==0}">
-		대기
-		</c:if>
-		<c:if test="${heart.finish ==1}">
-		수락
-		</c:if>
+	<td><img src="https://graph.facebook.com/${heart.gId }/picture"></td>
+	<td><input type="button" value="자세히 보기" onClick="wrapWindowByMask('${heart.gId }')">
 	</td>
 	</tr>
+	<div class="window" id="${heart.gId }"> <!-- 윈도우 창 -->
+				<img src="https://graph.facebook.com/${heart.gId }/picture">
+				<div class="info">
+				<br><br><br><br>
+				${heart.gName }<br>
+				</div>
+ 				<input type="button" class="close" value="닫기 X"/>
+				<form action="user" method="POST">				
+					<input type="hidden" name="type" value="gheart"/>
+					<input type="hidden" name="rid" value="${heart.gId }">
+					<input type="hidden" name="rname" value="${heart.gName }">
+					<input type="submit" class="submit" value="하트보내기"/>
+				</form>
+				</div>
 	</c:forEach>
 	</table>
+	<div id="mask"></div> 
 </div>
 </div>
 </c:if>

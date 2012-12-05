@@ -4,6 +4,7 @@ import java.sql.*;
 
 import javax.naming.*;
 import javax.sql.*;
+
 import java.util.*;
 
 public class UserDAO {
@@ -44,7 +45,8 @@ public class UserDAO {
 						rs.getString("pwd"),
 						rs.getString("email"),
 						rs.getString("gender"),
-						rs.getDate("birth")
+						rs.getString("birth"),
+						rs.getString("say")
 						);
 			}	
 		} finally {
@@ -70,8 +72,8 @@ public class UserDAO {
 
 			// 질의 준비
 			stmt = conn.prepareStatement(
-					"INSERT INTO users(userid, name, pwd, email, gender,id) " +
-					"VALUES(?, ?, ?, ?, ?,?)"
+					"INSERT INTO users(userid, name, pwd, email, gender,id,say,birth) " +
+					"VALUES(?, ?, ?, ?, ?, ?, ?, ?)"
 					);
 			stmt.setString(1,  user.getUserid());
 			stmt.setString(2,  user.getName());
@@ -79,6 +81,8 @@ public class UserDAO {
 			stmt.setString(4,  user.getEmail());
 			stmt.setString(5,  user.getGender());
 			stmt.setString(6,  user.getId());
+			stmt.setString(7,  user.getSay());
+			stmt.setString(8,  user.getBirth());
 			// 수행
 			result = stmt.executeUpdate();
 		} finally {
@@ -212,7 +216,7 @@ public class UserDAO {
 			if (conn != null) try{conn.close();} catch(SQLException e) {}
 		}
 	}
-	public static List<User> showAll(String gender) throws NamingException, SQLException
+	public static List<User> showAll(String gender,int birth) throws NamingException, SQLException
 	{
 		List<User> list; //반환하는 유저 리스트
 		Connection conn = null;
@@ -221,7 +225,6 @@ public class UserDAO {
 		DataSource ds = getDataSource();
 		list = new ArrayList<User>();
 		int person = 0 ; //db에 저장되있는 사람의 수
-		
 		try {
 			conn = ds.getConnection();
 			stmt = conn.prepareStatement("SELECT * FROM users WHERE gender= ? ");
@@ -247,22 +250,28 @@ public class UserDAO {
 			rs= null;
 			stmt.close();
 			stmt=null;
-			stmt = conn.prepareStatement("SELECT *FROM users WHERE gender=? ORDER BY hash");
+			stmt = conn.prepareStatement("SELECT *FROM users WHERE gender=? AND birth> ? AND birth<? ORDER BY hash");
 			if(gender.equals("male"))
 			{
 				stmt.setString(1, "female");
+				stmt.setInt(2,birth-5);
+				stmt.setInt(3,birth+5);
 				rs = stmt.executeQuery();
 			}
 			else
 			{
 				stmt.setString(1, "male");
+				stmt.setInt(2,birth-5);
+				stmt.setInt(3,birth+5);
 				rs = stmt.executeQuery();
 			}
-			while(rs.next())
+			int i=0;
+			while(rs.next() && i<6)
 			{
 				list.add(new User(rs.getString("id"),rs.getString("userid")
 					,rs.getString("name"),rs.getString("pwd"),rs.getString("email"),
-					rs.getString("gender"),rs.getDate("birth")));
+					rs.getString("gender"),rs.getString("birth"),rs.getString("say")));
+				i++;
 			}
 		
 			
@@ -274,5 +283,6 @@ public class UserDAO {
 		
 		return list;
 	}
+	
 }
 

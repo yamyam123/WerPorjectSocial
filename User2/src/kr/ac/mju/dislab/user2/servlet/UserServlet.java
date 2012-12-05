@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 
+import com.sun.xml.internal.ws.org.objectweb.asm.Type;
+
 import kr.ac.mju.dislab.user2.*;
 
 /**
@@ -30,6 +32,8 @@ public class UserServlet extends HttpServlet {
      */
 	User logid,empty;
 	boolean logOn = false;
+	List<Rheart> rheart;
+	List<Gheart> gheart;
 	public UserServlet() {
         super();
     }
@@ -38,6 +42,7 @@ public class UserServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
 		String op = request.getParameter("op");
 		String actionUrl = "";
 		boolean ret;
@@ -51,7 +56,8 @@ public class UserServlet extends HttpServlet {
 			if (op.equals("show")) {
 				if(logOn)
 				{
-					List<User> users= UserDAO.showAll(logid.getGender());
+					int birth = Integer.parseInt(logid.getBirth());
+					List<User> users= UserDAO.showAll(logid.getGender(),birth);
 					request.setAttribute("users", users);
 					request.setAttribute("user", logid);
 					actionUrl = "show.jsp";
@@ -98,6 +104,7 @@ public class UserServlet extends HttpServlet {
 				{
 					request.setAttribute("log","logout");
 				}	
+				request.setAttribute("rheart", rheart);
 				request.setAttribute("user",logid);
 				actionUrl = "login.jsp";
 				
@@ -110,7 +117,7 @@ public class UserServlet extends HttpServlet {
 				}
 				else
 				{
-					List<Gheart> gheart = HeartDAO.showgAll(logid.getId());
+					
 					request.setAttribute("user",logid);
 					request.setAttribute("gheart",gheart);
 					actionUrl = "gshow.jsp";
@@ -124,7 +131,7 @@ public class UserServlet extends HttpServlet {
 				}
 				else
 				{
-					List<Rheart> rheart = HeartDAO.showrAll(logid.getId());
+					HeartDAO.heartCheck(logid.getId());
 					request.setAttribute("user",logid);
 					request.setAttribute("rheart",rheart);
 					actionUrl = "rshow.jsp";
@@ -185,6 +192,8 @@ public class UserServlet extends HttpServlet {
 			String name = "";
 			String email = "";
 			String gender = "";
+			String birth = "";
+			String say= "";
 		
 			if(isEmpty)
 			{
@@ -195,6 +204,8 @@ public class UserServlet extends HttpServlet {
 				name = request.getParameter("name");
 				email = request.getParameter("email");
 				gender = request.getParameter("gender");
+				birth = request.getParameter("birth");
+				say = request.getParameter("say");
 			}
 			
 		
@@ -223,15 +234,28 @@ public class UserServlet extends HttpServlet {
 					errorMsgs.add("이름을 반드시 입력해주세요.");
 					error = true;
 				}
-				
+				if(birth==null || birth.trim().length() == 0)
+				{
+					birth="0";
+					errorMsgs.add("태어난 해를 입력해주세요.");
+					error = true;
+				}
+				else 
+				{
+					if(Integer.parseInt(birth) > 3000 || Integer.parseInt(birth) <1000) {
+						errorMsgs.add("태어난 해를 정확히 입력해주세요.");
+						error = true;
+					}
+				}
 				user.setId(id);
 				user.setName(name);
 				user.setUserid(userid);
 				user.setEmail(email);
 				user.setGender(gender);
-			} 
-	
+				user.setBirth(birth);
+				user.setSay(say);
 			
+			} 
 	
 			try {
 				if (isRegisterMode(request) && error == false) {
@@ -243,8 +267,8 @@ public class UserServlet extends HttpServlet {
 					msg = "<b>" + name + "</b>님의 사용자 정보가 수정되었습니다.";
 				}
 				if (error == true) {
-					request.setAttribute("error", errorMsgs);
 					errorMsgs.add("가입에 실패했습니다.");
+					request.setAttribute("error", errorMsgs);
 					actionUrl = "error.jsp";
 					
 				} else {
@@ -254,6 +278,7 @@ public class UserServlet extends HttpServlet {
 				}
 			} catch (SQLException | NamingException e) {
 				errorMsgs.add(e.getMessage());
+				request.setAttribute("error", errorMsgs);
 				actionUrl = "error.jsp";
 			}
 		}
@@ -266,10 +291,13 @@ public class UserServlet extends HttpServlet {
 				if(UserDAO.login(userid,pwd)!=null)
 				{
 					logid= UserDAO.login(userid,pwd);
+					gheart = HeartDAO.showgAll(logid.getId());
+					rheart = HeartDAO.showrAll(logid.getId());
 					if(log.equals("login"))
 					{	
 						request.setAttribute("user", logid);
 						request.setAttribute("log", "logout");
+						request.setAttribute("rheart", rheart);
 						logOn = true;
 					}
 					else
@@ -292,19 +320,19 @@ public class UserServlet extends HttpServlet {
 				actionUrl = "error.jsp";
 			}
 		}
-		else{//하트보내기 요청
-			String gId = request.getParameter("gid");//내아이디
+		else if (type.equals("gheart")){//하트보내기 요청
 			String rId = request.getParameter("rid");//상대 아이디
 			String rname =request.getParameter("rname");//보낸 사람 이름
-			String gname =request.getParameter("gname");//내 이름 
 			try{
-				if(!HeartDAO.alreadySend(gId, rId))
+				if(!HeartDAO.alreadyGive(logid.getId(), rId))
 				{
-					HeartDAO.GiveHaert(gId, rId, rname);
-					HeartDAO.ReceiveHeart(gId, rId, gname);
+					HeartDAO.GiveHaert(logid.getId(), rId, rname);//내db에 상대에게 보냈다고 저장
+					HeartDAO.ReceiveHeart(logid.getId(), rId, logid.getName());//상대db에  내가 보냇다고 저장
 					msg = "<b>" + rname + "</b>님께 하트를 발송하였습니다.";
 					request.setAttribute("msg", msg);
 					actionUrl = "success.jsp";
+					gheart = HeartDAO.showgAll(logid.getId());//다시 새로고침
+					rheart = HeartDAO.showrAll(logid.getId());//다시 새로고침
 				}
 				else
 				{
@@ -315,6 +343,7 @@ public class UserServlet extends HttpServlet {
 				// DB rid로 gheart에 생성 gid로 rheart에 생성
 			} catch(SQLException | NamingException e){
 				errorMsgs.add(e.getMessage());
+				request.setAttribute("error", errorMsgs);
 				actionUrl = "error.jsp";
 			}
 		}

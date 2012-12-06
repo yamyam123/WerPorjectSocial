@@ -3,7 +3,7 @@ package kr.ac.mju.dislab.user2.servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
-
+import java.math.*;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -34,6 +34,7 @@ public class UserServlet extends HttpServlet {
 	boolean logOn = false;
 	List<Rheart> rheart;
 	List<Gheart> gheart;
+	Problem problem;
 	public UserServlet() {
         super();
     }
@@ -117,7 +118,8 @@ public class UserServlet extends HttpServlet {
 				}
 				else
 				{
-					
+
+					gheart = HeartDAO.showgAll(logid.getId());
 					request.setAttribute("user",logid);
 					request.setAttribute("gheart",gheart);
 					actionUrl = "gshow.jsp";
@@ -131,12 +133,61 @@ public class UserServlet extends HttpServlet {
 				}
 				else
 				{
+					rheart = HeartDAO.showrAll(logid.getId());
 					HeartDAO.heartCheck(logid.getId());
 					request.setAttribute("user",logid);
 					request.setAttribute("rheart",rheart);
 					actionUrl = "rshow.jsp";
 				}
 				
+			} else if (op.equals("problem")){
+				if(!logOn)
+				{
+					
+					request.setAttribute("error","로그인  후에 사용 가능합니다");
+					request.setAttribute("user",logid);
+					actionUrl = "rshow.jsp";
+				}
+				else
+				{
+					String rId = request.getParameter("problem");
+					request.setAttribute("rid", rId);
+					request.setAttribute("user",logid);
+					request.setAttribute("rheart",rheart);
+					actionUrl = "problem.jsp";
+				} 
+			}else if (op.equals("pshow")){
+				if(!logOn)
+				{
+					
+					request.setAttribute("error","로그인  후에 사용 가능합니다");
+					request.setAttribute("user",logid);
+					actionUrl = "rshow.jsp";
+				}
+				else
+				{
+					String rId = request.getParameter("problem");
+					problem = ProblemDAO.findPromblem(logid.getId(), rId);
+					request.setAttribute("problem", problem);
+					request.setAttribute("user", logid);
+					actionUrl = "pshow.jsp";
+				}
+			} else if (op.equals("nshow")){
+				if(!logOn)
+				{
+					
+					request.setAttribute("error","로그인  후에 사용 가능합니다");
+					request.setAttribute("user",logid);
+					actionUrl = "rshow.jsp";
+				}
+				else
+				{
+					String rId = request.getParameter("problem");
+					problem = ProblemDAO.findPromblem(logid.getId(), rId);
+					request.setAttribute("problem", problem);
+					request.setAttribute("user", logid);
+					actionUrl = "nshow.jsp";
+				}
 			} else {
 				request.setAttribute("error", "알 수 없는 명령입니다");
 				actionUrl = "error.jsp";
@@ -322,7 +373,7 @@ public class UserServlet extends HttpServlet {
 		}
 		else if (type.equals("gheart")){//하트보내기 요청
 			String rId = request.getParameter("rid");//상대 아이디
-			String rName =request.getParameter("rname");//보낸 사람 이름
+			String rName = request.getParameter("rname");//보낸 사람 이름
 			try{
 				if(!HeartDAO.alreadyGive(logid.getId(), rId))
 				{
@@ -346,6 +397,136 @@ public class UserServlet extends HttpServlet {
 				request.setAttribute("error", errorMsgs);
 				actionUrl = "error.jsp";
 			}
+		}
+		else if (type.equals("problem")){ //문제 제출 요청
+			String title = request.getParameter("title");//문제
+			String first = request.getParameter("1");//첫지문
+			String second = request.getParameter("2");//두번째지문
+			String third = request.getParameter("3");//세번째지문
+			String fourth = request.getParameter("4");//네번쨰지문
+			String hpNumber = request.getParameter("hpnumber");// 핸드폰 번호
+			int pNumber = Integer.parseInt(request.getParameter("pnumber"));//문항갯수
+			int answer = Integer.parseInt(request.getParameter("answer"));// 정답번호
+			String rId = request.getParameter("rid");
+			
+			if(title==null)
+			{
+				errorMsgs.add("제목을 입력 해주세요.");
+				error = true;
+			}
+			if (first==null || first.length() < 1) {
+				errorMsgs.add("문항을 모두 입력해주세요");
+				error = true;
+			}
+			if (hpNumber.length()>11 ||hpNumber.length()<10)
+			{
+				errorMsgs.add("핸드폰 번호를 정확히 기입해주세요");
+				error = true;
+			}
+			try{
+				if(!error)
+				{
+					ProblemDAO.deletePromblem(rId, logid.getId());//상대가 보낸문제를 삭제함
+					Problem temp = new Problem(logid.getId(),rId,title, pNumber, first, second, third, fourth,answer);
+					ProblemDAO.create(temp);
+					ProblemDAO.setPhoneNumber(logid.getId(),hpNumber);
+					HeartDAO.updatePhrase(rId,logid.getId(),2);//상대가 문제를 풀수있게바꾼다.
+					HeartDAO.updatePhrase(logid.getId(),rId,1);//내가 문제를 낼수있게 바꾼다.
+					msg = "<b></b>문제를 제출하였습니다.";
+					request.setAttribute("msg", msg);
+					actionUrl = "success.jsp";
+				}
+				else
+				{
+					request.setAttribute("error", errorMsgs);
+					actionUrl = "error.jsp";
+				}
+			} catch(SQLException | NamingException e){
+				errorMsgs.add(e.getMessage());
+				request.setAttribute("error", errorMsgs);
+				actionUrl = "error.jsp";
+			}
+			
+			
+		}
+		else if (type.equals("answer")){//문제 맞추기 요청
+			int answer = Integer.parseInt(request.getParameter("answer"));
+			String rId = request.getParameter("problem");
+			int secret[] =new int[11];
+			int number = 0;
+			try{
+				
+				if(!error)
+				{
+					Problem problem = ProblemDAO.findPromblem(logid.getId(), rId);
+					if(problem.getAnswer()==answer)
+					{
+						number = problem.getPublicHp()+4;
+						if(number>11)
+						{
+							number = 11;
+						}
+						double demical;
+						String test="";
+						for(int i=0; i<number; i++)
+						{
+							demical = Math.pow(10,i);
+							secret[i] = (problem.getHpNumber() / (int)demical) % 10; 
+						}
+						for(int i=0; i<number; i++)
+						{
+							test += secret[number-(i+1)];
+						}
+						ProblemDAO.setPublicHp(rId, logid.getId(), number);
+						msg = "정답을 맞추셨습니다.";
+						request.setAttribute("answer", "4");
+						request.setAttribute("msg", msg);
+						request.setAttribute("secret", test);
+						request.setAttribute("user", logid);
+						actionUrl = "nshow.jsp";
+					}
+					else
+					{
+						number = problem.getPublicHp()+3;
+						if(number>11)
+						{
+							number = 11;
+						}
+						ProblemDAO.setPublicHp(logid.getId(), rId, number);
+						int demical;
+						String test="";
+						for(int i=0; i<number; i++)
+						{
+							demical = (int)Math.pow(10,i);
+							secret[i] = (int)(problem.getHpNumber() / demical) % 10;
+						}
+						for(int i=0; i<number; i++)
+						{
+							test += secret[number-(i+1)];
+						}
+						ProblemDAO.setPublicHp(rId, logid.getId(), number);
+						msg = "정답을 틀리셨습니다.";
+						request.setAttribute("answer", "3");
+						request.setAttribute("msg", msg);
+						request.setAttribute("secret", test);
+						request.setAttribute("user", logid);
+						actionUrl = "nshow.jsp";
+					}
+					HeartDAO.updatePhrase(rId,logid.getId(),2);//상대가 문제를 낼수있게바꾼다.
+					HeartDAO.updatePhrase(logid.getId(),rId,1);//내가 문제를 풀수있게 바꾼다.
+					ProblemDAO.deletePromblem(logid.getId(), rId);//상대가 보낸문제를 삭제함
+				}
+				else
+				{
+					request.setAttribute("error", errorMsgs);
+					actionUrl = "error.jsp";
+				}
+			}catch(SQLException | NamingException e){
+				errorMsgs.add(e.getMessage());
+				request.setAttribute("error", errorMsgs);
+				actionUrl = "error.jsp";
+			}
+	
 		}
 		request.setAttribute("errorMsgs", errorMsgs);
 		RequestDispatcher dispatcher = request.getRequestDispatcher(actionUrl);

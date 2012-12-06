@@ -272,4 +272,37 @@ public class HeartDAO {
 		}
 
 	}
+	
+	/*
+	public static List<Problem> addProblem(String id,String rId,String title,int pbnumber,
+			String first, String second, String third,
+			String fourth, int answer) throws NamingException, SQLException
+	{
+		List<Problem> list; //문제들
+		Connection conn = null;
+		PreparedStatement stmt=null;
+		ResultSet rs= null;
+		DataSource ds = getDataSource();
+		list = new ArrayList<Problem>();
+		
+		try {
+			conn = ds.getConnection();
+			stmt = conn.prepareStatement("SELECT * FROM rheart WHERE id = ? AND gid = ? ");
+			stmt.setString(1, id);
+			stmt.setString(2, rId);
+			rs = stmt.executeQuery();
+
+			while(rs.next())
+			{
+				list.add(new Problem(title,pbnumber,first,second,third,fourth,answer));
+			}
+	
+		} finally {
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+		
+		return list;
+	}*/
 }

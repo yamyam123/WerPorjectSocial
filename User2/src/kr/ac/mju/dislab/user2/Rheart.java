@@ -7,8 +7,9 @@ public class Rheart implements java.io.Serializable {//받은사람 하트
 	private String receiveTime;//받은시간
 	private String gId;//하트를 보낸사람 아이디
 	private String gName;//보낸사람 이름
-	int finish;
+	int finish;//하트 확인
 	int phrase;//문제의 단계수
+	List<Problem> list;//문제
 	public Rheart(){
 	}
 	public Rheart(String id, String receiveTime, String gId, String gName, int finish, int phrase)
@@ -20,6 +21,7 @@ public class Rheart implements java.io.Serializable {//받은사람 하트
 		this.finish = finish;
 		this.phrase = phrase;
 	}
+	
 	public int getPhrase() {
 		return phrase;
 	}

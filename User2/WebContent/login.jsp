@@ -71,7 +71,7 @@
 </html>
   <script>
    function checkHeart(id){
-	      //화면의 높이와 너비를 구한다.
+	      //하트가 왔을대 확인창이 뜨게함
 	     if(confirm("하트가 도착했습니다. 확인하시겠습니까?")){
 	    	 location.href="user?op=rshow&id="+id;
 	     }

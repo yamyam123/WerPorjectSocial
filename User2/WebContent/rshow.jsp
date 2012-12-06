@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <link href="css/stylesheet.css" rel="stylesheet">
-  <script src="js/jquery-1.8.2.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
 <title>Insert title here</title>
  <script src="js/jquery-1.8.2.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
@@ -27,7 +25,12 @@
 	    	 $('#'+id).show();
 	      
 	   }
-   
+   function moveProblem(id,rid){
+	   location.href="user?op=problem&id="+id+"&problem="+rid;
+   }
+   function moveProblemShow(id,rid){
+	   location.href="user?op=pshow&id="+id+"&problem="+rid;
+   }
    $(document).ready(function(){
 	      //검은 막 띄우기
 	      $('.openMask').click(function(e){
@@ -74,8 +77,11 @@
 	<td> ${heart.gName }</td>
 	<td><img src="https://graph.facebook.com/${heart.gId }/picture"></td>
 	<td><input type="button" value="자세히 보기" onClick="wrapWindowByMask('${heart.gId }')">
-	<c:if test = "${heart.phrase >= 1}">
-	<input type="button" value="문제내기">
+	<c:if test = "${heart.phrase == 1}">
+	<input type="button" value="문제내기" onClick="moveProblem('${user.id }','${heart.gId }')">
+	</c:if>
+	<c:if test = "${heart.phrase == 2}">
+	<input type="button" value="문제보기" onClick="moveProblemShow('${user.id }','${heart.gId }')">
 	</c:if>
 	</td>
 	</tr>

@@ -1,13 +1,13 @@
-ï»¿html{
+html{
 	background:#FFF; 
 }
 
 
-/*ì „ì²´*/
+/*ÀüÃ¼*/
 .wrap{width:960px; margin:0 auto; padding-bottom: 0; background-color:#fff;}
 
 
-/*íƒ‘*/
+/*Å¾*/
 #header { 
 	border:1px solid;
 	position: relative;
@@ -49,12 +49,12 @@
 width:55px;
 height:40px;
 }
-/*ë‚´ì •ë³´*/
+/*³»Á¤º¸*/
 #user-info{
 	font-size:12px;
 	float:right;
 }
-/*ì¹œêµ¬ ëª©ë¡ */
+/*Ä£±¸ ¸ñ·Ï */
 .friend{
 	width:200px;
 	heigth:100px;
@@ -79,7 +79,7 @@ height:40px;
 .homelink a:hover{
 	color:red;
 }
-/*ë„¤ë¹„ ë°”*/
+/*³×ºñ ¹Ù*/
 #navibar{
 	width:960px;
 	height:60px;
@@ -112,13 +112,13 @@ height:40px;
 
 .navi{width: 90px;}
 
-/*ë©”ì¸í™”ë©´*/
+/*¸ŞÀÎÈ­¸é*/
 .main{
 	margin : 0 0 0 0 ; 
 	background-color: white;
 	border:1px solid;
 	height: 700px;	
-	font-family:"HYë™ë…˜B","íœ´ë¨¼ëª¨ìŒT","êµ´ë¦¼";	
+	font-family:"HYµ¿³èB","ÈŞ¸Õ¸ğÀ½T","±¼¸²";	
 	font-size:15pt;
 	padding-left:25px;
 	padding-right:25px;
@@ -145,7 +145,7 @@ height:40px;
 	text-align:center;
 	font-size:11px;
 }
-/*ìœ ì € í”„ë¡œí•„ íŒì—…ì°½*/
+/*À¯Àú ÇÁ·ÎÇÊ ÆË¾÷Ã¢*/
 #mask {  
      position:absolute;  
      z-index:9000;  
@@ -186,7 +186,7 @@ height:40px;
 	width:200px;
 	height:50px;
 }
-/*sign up í˜ì´ì§€ ë¶€ë¶„*/
+/*sign up ÆäÀÌÁö ºÎºĞ*/
 .control-group{
 	width:700px;
 	height:70px;
@@ -202,7 +202,7 @@ height:40px;
 	maign-left :35px;
 	width:120px;
 	height:50px;
-	font-family:"ë‹ì›€";
+	font-family:"µ¸¿ò";
 	font-size:12pt;
 }
 .controls input{
@@ -219,7 +219,7 @@ height:40px;
 	width:150px;
 	height:30px;
 }
-/*ë¡œê·¸ì¸ ë¶€ë¶„*/
+/*·Î±×ÀÎ ºÎºĞ*/
 .log-form{
 	position:relative;
 	left:35%;
@@ -238,3 +238,31 @@ height:40px;
 	width:155px;
 	height:30px;
 }
+
+/* index */
+.resize {
+				border: 1px double #333;
+				float: left;
+				margin: .0em 0em 0em 0;
+				overflow: hidden;
+				width: 5em;
+				height: 5em;
+		}
+
+		.resize img {
+				margin: -50px 0 0 -50px;
+				padding: 0em 0 0 0em;
+				border: 0px;
+		}
+
+		#mask{
+				width:100%;
+				height:100%;
+				opacity:0.6;
+				filter:alpha(opacity=60)
+		}
+
+		#innerLayer{
+				width:100%;
+				background-color:#FFFFFF;
+		}

@@ -36,6 +36,7 @@
 		성공
 		</c:if>
 	</td>
+	<td><img src="https://graph.facebook.com/${heart.rId }/picture"></td>
 	</tr>
 	</c:forEach>
 	</table>

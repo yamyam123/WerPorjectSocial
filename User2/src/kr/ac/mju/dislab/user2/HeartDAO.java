@@ -64,7 +64,7 @@ public class HeartDAO {
 		}
 	}
 	
-	public static void ReceiveHeart(String gid,String rid,String name) throws NamingException, SQLException{
+	public static void ReceiveHeart(String id, String gid, String gname) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -80,15 +80,23 @@ public class HeartDAO {
 
 			// 질의 준비
 			stmt = conn.prepareStatement(
-					"INSERT INTO rheart(id, receivetime, gid, gname, finish) " +
-					"VALUES(?, ?, ?, ?, ?)"
+					"INSERT INTO rheart(id, receivetime, gid, gname, finish, phrase) " +
+					"VALUES(?, ?, ?, ?, ?, ?)"
 					);
-			stmt.setString(1,  rid);
+			stmt.setString(1,  id);
 			stmt.setString(2,  str);
 			stmt.setString(3,  gid);
-			stmt.setString(4, name);
+			stmt.setString(4, gname);
 			stmt.setInt(5, 1);
-			
+			if(alreadyReceive(gid,id))//하트를 받았다면 phrase 값을 1로 올리고 상대방의 db에도 1로 올림
+			{
+				stmt.setInt(6, 1);
+				updatePhrase(gid,id,1);
+			}
+			else
+			{
+				stmt.setInt(6, 0);
+			}
 			// 수행
 			stmt.executeUpdate();
 		} finally {
@@ -98,7 +106,31 @@ public class HeartDAO {
 			if (conn != null) try{conn.close();} catch(SQLException e) {}
 		}
 	}
-	public static boolean alreadyReceive(String gid,String rid) throws NamingException, SQLException{
+	public static void updatePhrase(String id,String gid,int phrase) throws NamingException, SQLException{
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int result;
+		DataSource ds = getDataSource();
+		
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("UPDATE rheart set phrase=? WHERE id = ? AND gid = ?");
+			stmt.setInt(1, phrase);
+			stmt.setString(2, id);
+			stmt.setString(3, gid);
+			// 수행
+			result = stmt.executeUpdate();
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+	}
+	public static boolean alreadyReceive(String id, String gid) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
@@ -108,17 +140,15 @@ public class HeartDAO {
 			conn = ds.getConnection();
 
 			// 질의 준비
-			stmt = conn.prepareStatement(
-					"SELECT * FROM rheart where id=? AND rid=?" 
-					);
-			stmt.setString(1,  rid);
+			stmt = conn.prepareStatement("SELECT * FROM rheart WHERE id=? AND gid=?");
+			stmt.setString(1,  id);
 			stmt.setString(2,  gid);
+			rs = stmt.executeQuery();
 			if(rs.next())
 			{
 				receive = true;
 			}
 			// 수행
-			stmt.executeUpdate();
 		} finally {
 			// 무슨 일이 있어도 리소스를 제대로 종료
 			if (rs != null) try{rs.close();} catch(SQLException e) {}
@@ -206,7 +236,7 @@ public class HeartDAO {
 			while(rs.next())
 			{
 				list.add(new Rheart(rs.getString("id"), rs.getString("receivetime"),
-						rs.getString("gid"), rs.getString("gname"), rs.getInt("finish")));
+						rs.getString("gid"), rs.getString("gname"), rs.getInt("finish"), rs.getInt("phrase")));
 			}
 	
 		} finally {

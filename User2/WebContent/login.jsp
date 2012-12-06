@@ -53,10 +53,37 @@
 	<input type ="hidden" name="type" value="log">
 	<input type="submit" class="btn btn-primary" value="log out">
 	</form>
-	${user.name }님 환영합니다.
+	${user.name }님 환영합니다.<br><%int i =0; %>
+	<c:forEach var="heart" items="${rheart }">
+		<c:if test="${heart.finish ==0}">
+		</c:if>
+		<c:if test="${heart.finish ==1}">
+		<%i++; %>
+		</c:if>
+	</c:forEach>
+	새로운 하트 <div id="heart-number"><%=i %></div> 개
 </div>
 </div>
+
 </c:if>
 <jsp:include page = "share/footer.jsp" />
 </body>
 </html>
+  <script>
+   function checkHeart(id){
+	      //화면의 높이와 너비를 구한다.
+	     if(confirm("하트가 도착했습니다. 확인하시겠습니까?")){
+	    	 location.href="user?op=rshow&id="+id;
+	     }
+	      
+	   }
+   
+   $(document).ready(function(){
+	    		if("${log}" == 'logout'){
+	    			if($("#heart-number").text()!=0 ){
+	    				checkHeart("${user.id}");
+	    			}
+	    		}
+	   });
+
+   </script>

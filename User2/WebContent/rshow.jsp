@@ -62,9 +62,11 @@
  <div class ="wrap">
  <div class ="main">
  <table>
+ <tr>
  <th>보낸 시간</th>
  <th>보낸 사람</th>
  <th>사진</th><th></th>
+ </tr>
 	
 	<c:forEach var="heart" items="${rheart }">
 	<tr>
@@ -72,6 +74,9 @@
 	<td> ${heart.gName }</td>
 	<td><img src="https://graph.facebook.com/${heart.gId }/picture"></td>
 	<td><input type="button" value="자세히 보기" onClick="wrapWindowByMask('${heart.gId }')">
+	<c:if test = "${heart.phrase >= 1}">
+	<input type="button" value="문제내기">
+	</c:if>
 	</td>
 	</tr>
 	<div class="window" id="${heart.gId }"> <!-- 윈도우 창 -->

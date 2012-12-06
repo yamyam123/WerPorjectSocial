@@ -322,13 +322,13 @@ public class UserServlet extends HttpServlet {
 		}
 		else if (type.equals("gheart")){//하트보내기 요청
 			String rId = request.getParameter("rid");//상대 아이디
-			String rname =request.getParameter("rname");//보낸 사람 이름
+			String rName =request.getParameter("rname");//보낸 사람 이름
 			try{
 				if(!HeartDAO.alreadyGive(logid.getId(), rId))
 				{
-					HeartDAO.GiveHaert(logid.getId(), rId, rname);//내db에 상대에게 보냈다고 저장
-					HeartDAO.ReceiveHeart(logid.getId(), rId, logid.getName());//상대db에  내가 보냇다고 저장
-					msg = "<b>" + rname + "</b>님께 하트를 발송하였습니다.";
+					HeartDAO.GiveHaert(logid.getId(), rId, rName);//내db에 상대에게 보냈다고 저장
+					HeartDAO.ReceiveHeart(rId, logid.getId(), logid.getName());//상대db에  내가 보냇다고 저장
+					msg = "<b>" + rName + "</b>님께 하트를 발송하였습니다.";
 					request.setAttribute("msg", msg);
 					actionUrl = "success.jsp";
 					gheart = HeartDAO.showgAll(logid.getId());//다시 새로고침

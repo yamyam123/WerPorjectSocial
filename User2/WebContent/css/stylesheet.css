@@ -14,8 +14,12 @@ html{
 	width:958px;
 	height: 130px;
 	padding:0;
+	magine-bottom:15px;
 	font-weight:bold;
 	background-color:white;
+	-moz-border-radius: 10px;
+ 	-webkit-border-radius: 10px;
+ 	border-radius: 10px;
 	
 }
 #header_left img{
@@ -86,6 +90,7 @@ height:40px;
 	background-color:black;	
 	margin-bottom: 15px;
 	float:left;
+ 
 }
 #navibar ul { margin: 0.7% 0% 1% 5%; padding:0; }
 #navibar ul li{ 
@@ -123,6 +128,12 @@ height:40px;
 	padding-left:25px;
 	padding-right:25px;
 	padding-top:25px;
+	 -moz-border-radius: 10px;
+ -webkit-border-radius: 10px;
+ border-radius: 10px;
+ -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CF00), to(#6DB700))
+ 
+	
 }
 
 .main ul { list-style: none; margin: 0% 0% 1% 0%; padding:0; }
@@ -165,8 +176,12 @@ height:40px;
   z-index:10000;
   color:blue;
   padding:20px;
+  -moz-border-radius: 10px;
+ -webkit-border-radius: 10px;
+ border-radius: 10px;
+ -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CF00), to(#6DB700))
 }
-.windoww{
+.window1{
   background-color:white;
   width:550px;
   height:500px;
@@ -177,6 +192,10 @@ height:40px;
   z-index:10000;
   color:blue;
   padding:20px;
+   -moz-border-radius: 10px;
+ -webkit-border-radius: 10px;
+ border-radius: 10px;
+ -webkit-gradient(linear, 0% 0%, 0% 100%, from(#99CF00), to(#6DB700))
 }
 .window img{
 	float:left;
@@ -323,6 +342,22 @@ a {
  background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#6DB700), to(#99CF00));
  background: -moz-linear-gradient(19% 75% 90deg,#99CF00, #6DB700);
 }
-
-
+/*show ∆‰¿Ã¡ˆ*/
+.user-inf{
+	float:left;
+	width:200px;
+	height:200px;
+	margin:20px;
+}
+.user-name{
+	margin-right:15px;
+	float:left;
+	width:150px;
+}
+.user-pic{
+	float:left;
+}
+.user-more{
+	float:left;
+}
 		

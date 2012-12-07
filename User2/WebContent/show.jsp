@@ -62,10 +62,16 @@
 		<div class ="main">
 		<a href="user?op=show&id=${user.id  }">목록 새로 고침 </a>
 		<c:forEach var="ruser" items="${users }">
-			<div id=userinf>
+			<div class="user-inf">
+			<div class="user-name">
 				${ruser.name }
+				</div>
+			<div class="user-pic">
 				<img src="https://graph.facebook.com/${ruser.id }/picture">
+				</div>
+			<div class="user-more">
 				<input type="button" value="자세히 보기" onClick="wrapWindowByMask('${ruser.id }')">
+			</div>
 			</div>
 			<div class="window" id="${ruser.id }"> <!-- 윈도우 창 -->
 				<img src="https://graph.facebook.com/${ruser.id }/picture">

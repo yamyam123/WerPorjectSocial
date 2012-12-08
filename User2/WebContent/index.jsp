@@ -40,25 +40,17 @@ import="java.util.*"  import="java.sql.*"
 5. 문제를 주고 받으며 핸드폰 번호를 알아냅니다.<br>
 <br>
 6. 만약 상대가 거절했다면 다른 이성을 택해주세요. <br>
-<div class="button">
-<div class="next"><h3>다음</h3></div> 
-</div>
-   </div> 
-  
-   
+
 <div class="button">
 
   <div class="openMask"><h3>Manual</h3></div> 
 </div>
-<div class="window1">
-   들어갈내용  <input type="button" href="#" class="close" value="닫기"/> </div>
 
 </c:if>
 <c:if test = "${user.name ==null }">
 <img src="img/index.jpg" alt="index" width = 900px height = 500px>
 
 
-  
 </c:if> 
 </div>
 </div>

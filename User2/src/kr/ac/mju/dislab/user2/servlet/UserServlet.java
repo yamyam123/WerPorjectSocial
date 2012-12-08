@@ -159,7 +159,6 @@ public class UserServlet extends HttpServlet {
 			}else if (op.equals("pshow")){
 				if(!logOn)
 				{
-					
 					request.setAttribute("error","로그인  후에 사용 가능합니다");
 					request.setAttribute("user",logid);
 					actionUrl = "rshow.jsp";
@@ -459,56 +458,22 @@ public class UserServlet extends HttpServlet {
 				if(!error)
 				{
 					Problem problem = ProblemDAO.findPromblem(logid.getId(), rId);
-					if(problem.getAnswer()==answer)
+					if(problem.getAnswer() == answer)
 					{
-						number = problem.getPublicHp()+4;
-						if(number>11)
-						{
-							number = 11;
-						}
-						double demical;
-						String test="";
-						for(int i=0; i<number; i++)
-						{
-							demical = Math.pow(10,i);
-							secret[i] = (problem.getHpNumber() / (int)demical) % 10; 
-						}
-						for(int i=0; i<number; i++)
-						{
-							test += secret[number-(i+1)];
-						}
 						ProblemDAO.setPublicHp(rId, logid.getId(), number);
 						msg = "정답을 맞추셨습니다.";
 						request.setAttribute("answer", "4");
 						request.setAttribute("msg", msg);
-						request.setAttribute("secret", test);
+						request.setAttribute("secret", problem.getHpNumber());
 						request.setAttribute("user", logid);
 						actionUrl = "nshow.jsp";
 					}
 					else
 					{
-						number = problem.getPublicHp()+3;
-						if(number>11)
-						{
-							number = 11;
-						}
-						ProblemDAO.setPublicHp(logid.getId(), rId, number);
-						int demical;
-						String test="";
-						for(int i=0; i<number; i++)
-						{
-							demical = (int)Math.pow(10,i);
-							secret[i] = (int)(problem.getHpNumber() / demical) % 10;
-						}
-						for(int i=0; i<number; i++)
-						{
-							test += secret[number-(i+1)];
-						}
 						ProblemDAO.setPublicHp(rId, logid.getId(), number);
-						msg = "정답을 틀리셨습니다.";
+						msg = "정답을 틀리셨습니다.상대의 다음문제를 맞춰주세요";
 						request.setAttribute("answer", "3");
 						request.setAttribute("msg", msg);
-						request.setAttribute("secret", test);
 						request.setAttribute("user", logid);
 						actionUrl = "nshow.jsp";
 					}

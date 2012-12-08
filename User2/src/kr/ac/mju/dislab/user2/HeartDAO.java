@@ -47,7 +47,8 @@ public class HeartDAO {
 			stmt.setString(4, name);
 			if(alreadyGive(rid,gid))//상대가 나에게 하트를 보냈엇나?
 			{
-				stmt.setInt(5,  1);
+				stmt.setInt(5,  1); //내가 보낸하트는 수락함
+				updateFinish(gid,rid);//상대가 수락한것을 알기위한 함수
 			}
 			else
 			{
@@ -63,7 +64,30 @@ public class HeartDAO {
 			if (conn != null) try{conn.close();} catch(SQLException e) {}
 		}
 	}
-	
+	public static void updateFinish(String id,String rid) throws NamingException, SQLException{//상대가 수락한것을 알기위한 함수
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		int result;
+		DataSource ds = getDataSource();
+		
+		try {
+			conn = ds.getConnection();
+
+			// 질의 준비
+			stmt = conn.prepareStatement("UPDATE gheart set finish=? WHERE id = ? AND rid = ?");
+			stmt.setInt(1, 1);
+			stmt.setString(2, rid);
+			stmt.setString(3, id);
+			// 수행
+			result = stmt.executeUpdate();
+		} finally {
+			// 무슨 일이 있어도 리소스를 제대로 종료
+			if (rs != null) try{rs.close();} catch(SQLException e) {}
+			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
+			if (conn != null) try{conn.close();} catch(SQLException e) {}
+		}
+	}
 	public static void ReceiveHeart(String id, String gid, String gname) throws NamingException, SQLException{
 		Connection conn = null;
 		PreparedStatement stmt = null;
@@ -273,36 +297,4 @@ public class HeartDAO {
 
 	}
 	
-	/*
-	public static List<Problem> addProblem(String id,String rId,String title,int pbnumber,
-			String first, String second, String third,
-			String fourth, int answer) throws NamingException, SQLException
-	{
-		List<Problem> list; //문제들
-		Connection conn = null;
-		PreparedStatement stmt=null;
-		ResultSet rs= null;
-		DataSource ds = getDataSource();
-		list = new ArrayList<Problem>();
-		
-		try {
-			conn = ds.getConnection();
-			stmt = conn.prepareStatement("SELECT * FROM rheart WHERE id = ? AND gid = ? ");
-			stmt.setString(1, id);
-			stmt.setString(2, rId);
-			rs = stmt.executeQuery();
-
-			while(rs.next())
-			{
-				list.add(new Problem(title,pbnumber,first,second,third,fourth,answer));
-			}
-	
-		} finally {
-			if (rs != null) try{rs.close();} catch(SQLException e) {}
-			if (stmt != null) try{stmt.close();} catch(SQLException e) {}
-			if (conn != null) try{conn.close();} catch(SQLException e) {}
-		}
-		
-		return list;
-	}*/
 }

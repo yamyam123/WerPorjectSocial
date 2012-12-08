@@ -28,25 +28,50 @@ import="java.util.*"  import="java.sql.*"
       //윈도우 같은 거 띄운다.
       $('.window').show();
    }
- 
+   function wrapWindowByMask2(){
+	      //화면의 높이와 너비를 구한다.
+	      var maskHeight = $(document).height();  
+	      var maskWidth = $(window).width();  
+	 
+	      //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+	      $('#mask').css({'width':maskWidth,'height':maskHeight});  
+	 
+	      //애니메이션 효과 - 일단 1초동안 까맣게 됐다가 80% 불투명도로 간다.
+	      $('#mask').fadeIn(1000);      
+	      $('#mask').fadeTo("slow",0.8);    
+	 
+	      //윈도우 같은 거 띄운다.
+	      $('.window1').show();
+	   }
+	 
    $(document).ready(function(){
       //검은 막 띄우기
       $('.openMask').click(function(e){
          e.preventDefault();
          wrapWindowByMask();
       });
+      $('.next').click(function(e){
+          e.preventDefault();
+          wrapWindowByMask2();
+       });
  
       //닫기 버튼을 눌렀을 때
       $('.window .close').click(function (e) {  
           //링크 기본동작은 작동하지 않도록 한다.
           e.preventDefault();  
-          $('#mask, .window').hide();  
-      });       
+          $('#mask, .window, .window1').hide();
+      });  
+      $('.window1 .close').click(function (e) {  
+          //링크 기본동작은 작동하지 않도록 한다.
+          e.preventDefault();  
+          $('#mask, .window, .window1').hide();
+      });  
  
       //검은 막을 눌렀을 때
       $('#mask').click(function () {  
           $(this).hide();  
-          $('.window').hide();  
+          $('.window').hide();
+          $('.window1').hide();  
       });      
    });
    </script>
@@ -77,13 +102,18 @@ import="java.util.*"  import="java.sql.*"
 5. 문제를 주고 받으며 핸드폰 번호를 알아냅니다.<br>
 <br>
 6. 만약 상대가 거절했다면 다른 이성을 택해주세요. <br>
-  
+<div class="button">
+<div class="next"><h3>다음</h3></div> 
+</div>
    </div> 
+  
    
 <div class="button">
+
   <div class="openMask"><h3>Manual</h3></div> 
 </div>
-
+<div class="window1">
+   들어갈내용  <input type="button" href="#" class="close" value="닫기"/> </div>
 
 </c:if>
 <c:if test = "${user.name ==null }">

@@ -26,13 +26,16 @@
 		var pro = parseInt($(".select").val());
 		var output='문제<input type="text" name="title"><input type="hidden" name="pnumber" value="'+pro+'"><br>';
 		var problem="";
-		for(var i=0; i<pro; i++)
-		{
-			problem ='지문 '+(i+1)+'번'+'<input type="text" name="'+(i+1)+'">'+
-						'<input type="radio" name="answer" value="'+(i+1)+'"checked="checked">정답 ';
-			output += problem;
+		if(!isNaN(pro)){
+			for(var i=0; i<pro; i++)
+			{
+				problem ='지문 '+(i+1)+'번'+'<input type="text" name="'+(i+1)+'">'+
+							'<input type="radio" name="answer" value="'+(i+1)+'"checked="checked">정답 ';
+				output += problem;
+			}
+			output +=  '<br><input type="submit" value="문제 제출">';
+				$(".space").html(output);
 		}
-		$(".space").html(output);
 	}
   </script>
 </head>
@@ -46,6 +49,7 @@
 	핸드폰 번호<input type="text" name="hpnumber" style="ime-mode:disabled;" onkeydown="return onlyNumber(event)"><br>
 	
 	문제 갯수를 선택하세요<select class="select" onchange="select();">
+	<option>선택</option>
 	<option>2</option>
 	<option>3</option>
 	<option>4</option>
@@ -53,7 +57,6 @@
 	<div class="space"></div>
 	<input type ="hidden" name="rid" value="${rid}">
 	<input type ="hidden" name="type" value="problem">
-	<input type="submit" value="문제 제출">
 	</form>
 </div>
 </div>

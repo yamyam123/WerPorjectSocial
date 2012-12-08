@@ -15,12 +15,13 @@
 <div class ="wrap">
 <div class ="main">
 <c:if test = "${answer == 4}">
-${msg }<br>번호가 4개 공개 됩니다.
+${msg }
+<br>상대가 입력한 핸드폰 번호는
+<c:out value="${secret }"></c:out> 입니다.
 </c:if>
 <c:if test = "${answer == 3}">
-${msg }<br>번호가 3개 공개 됩니다.
+${msg }
 </c:if>
-<c:out value="${secret }"></c:out>
 <br><a href="user?op=rshow&id=${user.id}">뒤로가기</a>
 </div>
 </div>

@@ -61,7 +61,8 @@
 		<%i++; %>
 		</c:if>
 	</c:forEach>
-	새로운 하트 <div id="heart-number"><%=i %></div> 개
+	<div id="new-heart">
+	새로운 하트가 </div> <div id="heart-number"><%=i %></div> 개 있습니다.
 </div>
 </div>
 

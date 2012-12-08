@@ -24,8 +24,7 @@
 	<div class ="wrap">
 	<div id ="header">
 		<div id="header_left">
-		Social Dating<a href="user?op=index" >
-		<img src="img/logo.jpg" alt="logo"></a>
+		Social Dating<img src="img/logo.jpg" alt="logo">
 		</div>
 	<div id = "header_right">
 		<c:if test = "${user.id != NULL}">

@@ -17,6 +17,7 @@
  <script src="http://code.jquery.com/jquery-latest.js"></script>
 <div class ="wrap">
 <div class ="main">
+<c:if test ="${problem.id !=null}">
  문제 : ${problem.title}<br>
  <form method="POST">
  <c:if test ="${problem.pNumber ==2}">
@@ -38,6 +39,11 @@
  <input type ="hidden" name="type" value="answer">
  <input type="submit" value="풀기">
  </form>
+ </c:if>
+ <c:if test ="${problem.id ==null}">
+	상대가 문제를 입력하지 않았습니다. 상대가 문제를 입력할때까지 기다려 주세요.<br>
+	<a href="user?op=rshow&id=${user.id  }">뒤로가기</a>
+ </c:if>
  </div>
  </div>
 </body>
